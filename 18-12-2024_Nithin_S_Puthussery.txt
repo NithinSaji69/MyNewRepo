@@ -1,0 +1,114 @@
+1.Sorting an Array:
+-------------------
+-Declare a[],length
+-length=a.length-1
+-Start a loop where i=0,i<=length
+	-if a[i]<a[i+1]
+		-temp=a[i]
+		-a[i]=a[i+1]
+		-a[i+1]=a[i]
+	-increment i by 1
+-end loop
+-display a[]
+
+
+
+
+
+2.Largest Number:
+-----------------
+-declare a[],length=a.length-1,big=0
+-Start a loop where i=0,i<=length
+	if a[i]>big
+		big=a[i]
+	increment i by 1;
+-end loop
+-display big
+
+
+
+
+
+3.Palindome:
+-------------
+-Declare num,num_Check=num,temp_num=0
+-while num>1
+	-temp_num=temp_num*10+num%10
+	-num=int(num/10)
+-end while
+-if temp_num==num_check
+	-display palindrome
+-else
+	-display not palindrome
+
+
+
+
+
+4.Prime Number:
+----------------
+-Declare Num
+-if (Num=1 OR NUM=0)OR((Num%2==0)AND(Num%3==0))
+	-Display "Is Prime"
+-else
+	-Display "Not Prime"
+
+
+
+
+
+5.Fibonacci Series
+-------------------
+-initialise a,b,range
+-start a loop from 0 to range
+	sum=a+b
+	display sum
+	a=b,b=sum
+	increment loop
+-end loop
+
+
+
+
+6.Basic Calculator
+--------------------
+- write a function Calculator wth parameters a,b,operation
+-if operation='+'
+	display "answer = " a+b
+-if operation='-'
+	display "answer = " a-b
+-if operation='*'
+	display "answer = " a*b
+-if operation='/'
+	display "answer = " a/b
+-end function Calculator
+-Call function ,pass parameters
+
+
+
+
+
+7.Factorial Calculation
+-------------------------
+ -initialise num,ans=1
+-start a loop i=num,i>0
+	ans=ans*i
+	decrement i by 1
+-end loop
+-display ans
+
+
+
+
+8.Vovels
+----------
+- Declare v=[a,e,i,o,u,A,E,I,O,U], int count=0
+-declare a string word
+-iterate through each character in the word
+	if characer in array v
+		increment count by 1 
+-display count
+
+
+
+	
