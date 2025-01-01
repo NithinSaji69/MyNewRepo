@@ -1,0 +1,1797 @@
+Sum of Two Numbers
+Write a program that takes two integers as input and calculates their sum using a function. Pass the integers to the function using call by value.
+
+
+//without return
+#include<stdio.h>
+void sum2Elements(int, int);//function Prototype
+
+int main(){
+    int a=20,b=30;
+    sum2Elements(a,b);
+    printf("001d=%d & e= %d\n",a,b);
+}
+
+//function call
+void sum2Elements(int a, int b){
+    a=30;
+    b=40;
+    printf("002d=%d & e= %d\n",a,b);
+    int sum=0;
+    sum=a+b;
+    printf("Sum = %d \n",sum);
+}
+
+
+//with Return
+#include<stdio.h>
+int sum2Elements(int, int);//function Prototype
+
+int main(){
+    int a=20,b=30;
+    int sum=sum2Elements(a,b);
+    printf("Sum=%d\n",sum);
+    printf("001a=%d & b= %d\n",a,b);
+}
+
+//function call
+int sum2Elements(int a, int b){
+    a=30;
+    b=40;
+    printf("002d=%d & e= %d\n",a,b);
+    int sum=0;
+    sum=a+b;
+    return sum;
+}
+
+Swap Two Numbers
+Write a program to swap two numbers using a function. Observe and explain why the original numbers remain unchanged due to call by value.
+
+
+//without return
+#include<stdio.h>
+void swap2Elements(int, int);//function Prototype
+
+int main(){
+    int a=20,b=30;
+    printf("000 a = %d \n b=%d\n",a,b);
+    swap2Elements(a,b);
+    printf("001 a=%d & b= %d\n",a,b);
+}
+
+
+void swap2Elements(int a, int b){
+    a=a+b;
+    b=a-b;
+    a=a-b;
+    printf("002 a = %d \n b=%d\n",a,b);
+}
+
+Find Maximum of Two Numbers
+Implement a function that takes two integers as arguments and returns the larger of the two. Demonstrate how the original values are not altered.
+
+//without return
+#include<stdio.h>
+void Greatest(int, int);//function Prototype
+
+int main(){
+    int a=20,b=30;
+    Greatest(a,b);
+    
+    
+}
+
+void Greatest(int a, int b){
+    if(a>b){
+        printf("%d is greater\n",a);
+    }
+    else{
+        printf("%d is greater\n",b);
+
+    }
+}
+
+
+//with Return
+#include<stdio.h>
+int Greatest(int, int);//function Prototype
+
+int main(){
+    int a=20,b=30;
+    int large=Greatest(a,b);
+    printf("Greatest=%d\n",large);
+    
+}
+
+int Greatest(int a, int b){
+    if(a>b){
+        return a;
+    }
+    else{
+        return b;
+    }
+}
+Factorial Calculation
+Create a function to compute the factorial of a given number passed to it. Ensure the original number remains unaltered.
+//without return
+#include<stdio.h>
+void Factorial(int);//function Prototype
+
+int main(){
+    int a=5;
+    Factorial(a);
+    
+    
+}
+
+void Factorial(int a){
+    int fact=1;
+    for(int i=1;i<=a;i++){
+        fact *= i;
+    }
+    printf("Factorial of %d is %d\n", a, fact);
+}
+
+
+//with Return
+#include<stdio.h>
+int Factorial(int);//function Prototype
+
+int main(){
+    int a=5;
+    int f=Factorial(a);
+    printf("Factorial of %d is %d\n", a, f);
+    
+}
+
+int Factorial(int a){
+    int fact=1;
+    for(int i=1;i<=a;i++){
+        fact *= i;
+    }
+    return fact;
+}
+
+Check Even or Odd
+Write a program where a function determines whether a given integer is even or odd. The function should use call by value.
+
+//without return
+#include<stdio.h>
+void oddOrEven(int);//function Prototype
+
+int main(){
+    int a=5;
+    oddOrEven(a);
+    
+    
+}
+
+void oddOrEven(int a){
+    if(a&1){
+        printf("%d is odd\n", a);
+    }
+    else{
+        printf("%d is even\n", a);
+    }
+}
+
+
+//with Return
+#include<stdio.h>
+int oddOrEven(int);//function Prototype
+
+int main(){
+    int a=4;
+    if(oddOrEven(a)){
+        printf("%d is odd\n", a);
+
+    }
+    else{
+        printf("%d is even\n", a);
+    }
+    
+    
+}
+
+int oddOrEven(int a){
+    if(a&1){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+Calculate Simple Interest
+Write a program that calculates simple interest using a function. Pass principal, rate, and time as arguments and return the computed interest.
+
+//without return
+
+
+#include<stdio.h>
+void calculateSI(float p,float r,float t); // function prototype
+
+int main(){
+    float p=1000.0;
+    float r =5.0;
+    float t=2.0;
+    calculateSI(p, r, t);
+    
+    return 0;
+}
+
+void calculateSI(float p, float r, float t){
+    printf("Simple Intrest:%.2f", ((p*r*t)/100));
+}
+
+
+//with Return
+#include<stdio.h>
+float calculateSI(float p,float r,float t); // function prototype
+
+int main(){
+    float p=1000.0;
+    float r =5.0;
+    float t=2.0;
+    float i=calculateSI(p, r, t);
+    printf("Simple Interest is: %.2f\n", i);
+    return 0;
+}
+
+float calculateSI(float p, float r, float t){
+    return ((p*r*t)/100);
+}
+
+
+Reverse a Number
+Create a function that takes an integer and returns its reverse. Demonstrate how call by value affects the original number.
+
+//without return
+
+#include <stdio.h>
+void reverseNumber(int num);
+int main(){
+    int num=1234;
+    reverseNumber(num);
+    return 0;
+}
+
+void reverseNumber(int num){
+    int reversed=0;
+    while (num!=0){
+        int digit=num%10;
+        reversed =reversed*10+digit;
+        num/=10;
+    }
+    printf("Reversed Number: %d\n",reversed);
+}
+
+
+//with Return
+
+#include <stdio.h>
+int reverseNumber(int num);
+int main(){
+    int num=1234;
+    int reversed=reverseNumber(num);
+    printf("Reversed Number: %d\n", reversed);
+    return 0;
+}
+
+int reverseNumber(int num){
+    int reversed=0;
+    while (num!=0){
+        int digit=num%10;
+        reversed =reversed*10+digit;
+        num/=10;
+    }
+    return reversed;
+}
+
+
+
+GCD of Two Numbers
+Write a function to calculate the greatest common divisor (GCD) of two numbers passed by value.
+
+//without return
+
+#include <stdio.h>
+int gcd(int a, int b);  
+static int num1, num2;
+int main(){
+    
+    printf("Enter two integers: ");
+    scanf("%d %d", &num1, &num2);
+    gcd(num1,num2);
+}
+int gcd(int a, int b){
+    while (b!=0){
+        int temp=b;
+        b=a%b;
+        a=temp;
+    }
+    printf("GCD of %d and %d is %d\n",num1 ,num2 ,a );
+    
+}
+
+//with return
+
+#include <stdio.h>
+int gcd(int a, int b);  
+int main(){
+    static int num1, num2;
+    printf("Enter two integers: ");
+    scanf("%d %d", &num1, &num2);
+    printf("GCD of %d and %d is %d\n", num1, num2, gcd(num1, num2));
+    return 0;
+}
+int gcd(int a, int b){
+    while (b!=0){
+        int temp=b;
+        b=a%b;
+        a=temp;
+    }
+    return a;
+}
+
+Sum of Digits
+Implement a function that computes the sum of the digits of a number passed as an argument.
+
+//Without Return
+
+#include <stdio.h>
+// Function Prototype
+void sumOfDigits(int n);  
+static int num; 
+int main(){
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    sumOfDigits(num); // Call the function
+    return 0;
+}
+// Function Definition
+void sumOfDigits(int n){
+    int sum=0;
+    while (n!=0){
+        sum+=n%10; 
+        n/=10;       
+    }
+    printf("Sum of digits of %d is %d\n", num, sum);
+}
+
+
+//With Return
+
+#include <stdio.h>
+
+// Function Prototype
+int sumOfDigits(int n);
+
+int main() {
+    static int num; 
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    printf("Sum of digits of %d is %d\n", num, sumOfDigits(num));
+    return 0;
+}
+
+// Function Definition
+int sumOfDigits(int n){
+    int sum=0;
+    while (n!=0){
+        sum +=n%10; 
+        n/=10;
+    }
+    return sum;
+}
+
+
+Prime Number Check
+Write a program where a function checks if a given number is prime. Pass the number as an argument by value.
+
+//Without Return
+
+#include <stdio.h>
+// Function Prototype
+void checkPrime(int n);
+static int num;
+int main(){
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    checkPrime(num); // Call the function
+    return 0;
+}
+void checkPrime(int n){
+    int isPrime =1; 
+    if (n <= 1){
+        isPrime = 0;
+    }
+    else {
+        for (int i=2; i*i<=n; i++){
+            if (n%i==0){
+                isPrime=0;
+                break;
+            }
+        }
+    }
+    if(isPrime){
+        printf("%d is a prime number.\n", num);
+    }
+    else{
+        printf("%d is not a prime number.\n", num);
+    }
+}
+
+
+//With return
+
+#include <stdio.h>
+// Function Prototype
+int isPrime(int n);
+int main(){
+    static int num; 
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    if (isPrime(num)){
+        printf("%d is a prime number.\n", num);
+    }
+    else{
+        printf("%d is not a prime number.\n", num);
+    }
+    return 0;
+}
+
+// Function Definition
+int isPrime(int n){
+    if (n<=1){
+        return 0;
+        }
+    for (int i=2; i*i<=n; i++){ 
+        if (n%i==0){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+Fibonacci Sequence Check
+Create a function that checks whether a given number belongs to the Fibonacci sequence. Pass the number by value.
+
+//without return
+
+#include <stdio.h>
+#include <math.h>
+// Function Prototype
+void isFibonacci(int n);
+int isPerfectSquare(int);
+static int num; // Static variable for the input number
+
+int main(){
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    isFibonacci(num); // Call the function
+    return 0;
+}
+int isPerfectSquare(int x){
+    int s =(int)sqrt(x);
+    return (s*s==x);
+}
+// Function Definition
+void isFibonacci(int n){
+    if (isPerfectSquare(5*n*n+4) || isPerfectSquare(5*n*n-4)){
+        printf("%d is a Fibonacci number.\n", num);
+    }
+    else{
+        printf("%d is not a Fibonacci number.\n", num);
+    }
+}
+
+
+//with return
+
+#include <stdio.h>
+#include <math.h>
+// Function Prototype
+int isFibonacci(int n);
+
+int main(){
+    static int num;
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    if (isFibonacci(num)){
+        printf("%d is a Fibonacci number.\n", num);
+    }
+    else{
+        printf("%d is not a Fibonacci number.\n", num);
+    }
+    return 0;
+}
+int isPerfectSquare(int x){
+    int s=(int)sqrt(x);
+    return (s*s==x);
+}
+
+// Function Definition
+int isFibonacci(int n){
+    return isPerfectSquare(5*n*n+4) || isPerfectSquare(5*n*n-4);
+}
+
+
+Quadratic Equation Solver
+Write a function to calculate the roots of a quadratic equation ax2+bx+c=0ax^2 + bx + c = 0ax2+bx+c=0. Pass the coefficients a,b,a, b,a,b, and ccc as arguments.
+Binary to Decimal Conversion
+Implement a function to convert a binary number (passed as an integer) into its decimal equivalent.
+
+//Without return
+#include <stdio.h>
+// Function Prototype
+void binaryToDecimal(int binary);
+int main() {
+    int binary;
+    printf("Enter a binary number: ");
+    scanf("%d", &binary);
+    binaryToDecimal(binary);
+
+    return 0;
+}
+
+void binaryToDecimal(int binary){
+    int decimal = 0, base=1, remainder;
+    while (binary>0){
+        remainder=binary % 10;
+        decimal=decimal+remainder*base;  
+        binary=binary/10;  
+        base=base*2;  
+    }
+
+    printf("Decimal equivalent: %d\n", decimal);
+}
+
+//with return
+
+#include <stdio.h>
+// Function Prototype
+int binaryToDecimal(int binary);
+int main() {
+    static int binary;
+    printf("Enter a binary number: ");
+    scanf("%d", &binary);
+    printf("Decimal equivalent: %d\n", binaryToDecimal(binary));
+    return 0;
+}
+// Function to convert binary to decimal
+int binaryToDecimal(int binary) {
+    int decimal=0, base=1, remainder;
+
+    while(binary>0){
+        remainder=binary%10;
+        decimal=decimal+remainder*base;  
+        binary=binary/10;  
+        base=base*2;  
+    }
+    return decimal;
+}
+
+
+
+Matrix Trace Calculation
+Write a program where a function computes the trace of a 2x2 matrix (sum of its diagonal elements). Pass the matrix elements individually as arguments.
+
+//Without return
+
+#include <stdio.h>
+// Function Prototype
+void calculateTrace(int a, int b, int c, int d);
+int main(){
+    int a, b, c, d;
+    printf("Enter elements of the 2x2 matrix:\n");
+    printf("a: ");
+    scanf("%d", &a);
+    printf("b: ");
+    scanf("%d", &b);
+    printf("c: ");
+    scanf("%d", &c);
+    printf("d: ");
+    scanf("%d", &d);
+    calculateTrace(a, b, c, d);
+    return 0;
+}
+// Function to calculate the trace of the matrix
+void calculateTrace(int a, int b, int c, int d){
+    int trace =a+d;
+    printf("Trace of the matrix: %d\n", trace);
+}
+
+
+//With Return
+
+#include <stdio.h>
+// Function Prototype
+int calculateTrace(int a, int b, int c, int d);
+int main() {
+    static int a, b, c, d;
+    printf("Enter elements of the 2x2 matrix:\n");
+    printf("a: ");
+    scanf("%d", &a);
+    printf("b: ");
+    scanf("%d", &b);
+    printf("c: ");
+    scanf("%d", &c);
+    printf("d: ");
+    scanf("%d", &d);
+
+    printf("Trace of the matrix: %d\n", calculateTrace(a, b, c, d));
+
+    return 0;
+}
+// Function to calculate the trace of the matrix
+int calculateTrace(int a, int b, int c, int d){
+    return a +d;
+}
+
+
+Palindrome Number Check
+Create a function that checks whether a given number is a palindrome. Pass the number by value and return the result.
+
+
+//without return
+
+#include <stdio.h>
+// Function Prototype
+void isPalindrome(int num);
+int main(){
+    static int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    isPalindrome(num);
+    return 0;
+}
+void isPalindrome(int num){
+    int originalNum = num, reversedNum = 0, remainder;
+    while(num != 0){
+        remainder = num%10;
+        reversedNum=reversedNum*10+remainder;
+        num /= 10;
+    }
+    if (originalNum == reversedNum){
+        printf("%d is a palindrome.\n", originalNum);
+    }
+    else{
+        printf("%d is not a palindrome.\n", originalNum);
+    }
+}
+
+
+//with return
+
+#include <stdio.h>
+// Function Prototype
+int isPalindrome(int num);
+int main() {
+    static int num;
+
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    if (isPalindrome(num)) {
+        printf("%d is a palindrome.\n", num);
+    } else {
+        printf("%d is not a palindrome.\n", num);
+    }
+
+    return 0;
+}
+// Function to check if the number is a palindrome
+int isPalindrome(int num){
+    int originalNum = num, reversedNum = 0, remainder;
+
+    while (num != 0){
+        remainder = num % 10; 
+        reversedNum = reversedNum * 10 + remainder;
+        num /= 10; 
+    }
+    return (originalNum == reversedNum);
+}
+
+
+1. Unit Conversion for Manufacturing Processes
+Input: A floating-point value representing the measurement and a character indicating the conversion type (e.g., 'C' for cm-to-inches or 'I' for inches-to-cm).
+Output: The converted value.
+Function:
+float convert_units(float value, char type);
+ 
+//without return
+
+#include <stdio.h>
+// Function Prototype
+void convert_units(float value, char type);
+
+int main(){
+    float value;
+    char type;
+
+    printf("Enter the value and conversion type (C for cm to inches, I for inches to cm): ");
+    scanf("%f %c", &value, &type);
+    convert_units(value, type);
+
+    return 0;
+}
+// Function to convert units
+void convert_units(float value, char type){
+    if (type == 'C'){
+        // Convert cm to inches
+        float result = value/2.54;
+        printf("%.2f cm = %.2f inches\n", value, result);
+    } else if (type=='I'){
+        //conver inches to cm
+        float result=value*2.54;
+        printf("%.2f inches= %.2f cm\n", value, result);
+    } else{
+        printf("Invalid conversion type. Use 'C' for cm to inches or 'I' for inches to cm.\n");
+    }
+}
+
+
+//with Return
+
+#include <stdio.h>
+// Function Prototype
+float convert_units(float value, char type);
+
+int main() {
+    float value;
+    char type;
+    printf("Enter the value and conversion type (C for cm to inches, I for inches to cm): ");
+    scanf("%f %c", &value, &type);
+    float result = convert_units(value, type);
+    printf("Converted value: %.2f\n", result);
+    return 0;
+}
+
+// Function to convert units
+float convert_units(float value, char type){
+    if (type == 'C'){
+        // Convert cm to inches
+        return value/2.54;
+    } else if (type== 'I'){
+        // Convert inches to cm
+        return value*2.54;
+    } 
+    else{
+        printf("Invalid conversion type. Use 'C' for cm to inches or 'I' for inches to cm.\n");
+        return -1;
+    }
+}
+
+
+2. Cutting Material Optimization
+Input: Two integers: the total length of the raw material and the desired length of each piece.
+Output: The maximum number of pieces that can be cut and the leftover material.
+Function:
+int calculate_cuts(int material_length, int piece_length);
+ 
+// without return
+
+#include <stdio.h>
+// Function Prototype
+void calculate_cuts(int material_length, int piece_length);
+int main() {
+    int material_length, piece_length;
+    printf("Enter total material length and desired piece length: ");
+    scanf("%d %d", &material_length, &piece_length);
+    calculate_cuts(material_length, piece_length);
+
+    return 0;
+}
+void calculate_cuts(int material_length, int piece_length){
+    if (piece_length<=0) {
+        printf("Piece length must be greater than zero.\n");
+        return;
+    }
+
+    int number_of_pieces = material_length/piece_length;
+    int leftover_material = material_length % piece_length;
+    printf("Maximum number of pieces: %d\n", number_of_pieces);
+    printf("Leftover material: %d\n", leftover_material);
+}
+
+
+3. Machine Speed Calculation
+Input: Two floating-point numbers: belt speed (m/s) and pulley diameter (m).
+Output: The RPM of the machine.
+Function:
+float calculate_rpm(float belt_speed, float pulley_diameter);
+ 
+#include <stdio.h>
+// Function Prototype
+void calculate_rpm(float belt_speed, float pulley_diameter);
+#define PI 3.14
+
+int main(){
+    float belt_speed, pulley_diameter;
+    printf("Enter the belt speed (m/s) and pulley diameter (m): ");
+    scanf("%f %f", &belt_speed, &pulley_diameter);
+    calculate_rpm(belt_speed, pulley_diameter);
+    return 0;
+}
+
+// Function to calculate RPM based on belt speed and pulley diameter
+void calculate_rpm(float belt_speed, float pulley_diameter) {
+    float rpm=(belt_speed/(PI * pulley_diameter))*60;
+    
+    printf("The RPM of the machine is: %.2f\n", rpm);
+}
+
+
+4. Production Rate Estimation
+Input: Two integers: machine speed (units per hour) and efficiency (percentage).
+Output: The effective production rate.
+Function:
+
+#include <stdio.h>
+
+// Function Prototype
+int calculate_production_rate(int speed, int efficiency);
+int main(){
+    int speed, efficiency;
+    printf("Enter the machine speed (units per hour) and efficiency (percentage): ");
+    scanf("%d %d", &speed, &efficiency);
+    int effective_rate = calculate_production_rate(speed, efficiency);
+    printf("The effective production rate is: %d units per hour\n", effective_rate);
+
+    return 0;
+}
+
+int calculate_production_rate(int speed, int efficiency){
+    if (efficiency <0||efficiency >100){
+        printf("Efficiency should be between 0 and 100.\n");
+        return -1;
+    }
+
+    return(speed * efficiency)/100;
+}
+
+
+int calculate_production_rate(int speed, int efficiency);
+5. Material Wastage Calculation
+Input: Two integers: total material length and leftover material length.
+Output: The amount of material wasted.
+Function:
+int calculate_wastage(int total_length, int leftover_length);
+ 
+
+ #include <stdio.h>
+// Function Prototype
+int calculate_wastage(int total_length, int leftover_length);
+int main(){
+    int total_length, leftover_length;
+
+    printf("Enter the total material length and leftover material length: ");
+    scanf("%d %d", &total_length, &leftover_length);
+    int wastage = calculate_wastage(total_length, leftover_length);
+    printf("The material wastage is: %d units\n", wastage);
+    return 0;
+}
+
+// Function to calculate the material wastage
+int calculate_wastage(int total_length, int leftover_length){
+    if (leftover_length > total_length){
+        printf("Leftover material cannot be greater than total material length.\n");
+        return -1; 
+    }
+    return total_length - leftover_length;
+}
+
+
+6. Energy Cost Estimation
+Input: Three floating-point numbers: power rating (kW), operating hours, and cost per kWh.
+Output: The total energy cost.
+Function:
+float calculate_energy_cost(float power_rating, float hours, float cost_per_kwh);
+ 
+
+#include <stdio.h>
+
+float calculate_energy_cost(float power_rating, float hours, float cost_per_kwh);
+
+int main(){
+    float power_rating, hours, cost_per_kwh;
+    printf("Enter the power rating (kW), operating hours, and cost per kWh: ");
+    scanf("%f %f %f", &power_rating, &hours, &cost_per_kwh);
+    float total_cost = calculate_energy_cost(power_rating, hours, cost_per_kwh);
+    printf("The total energy cost is: %.2f\n", total_cost);
+    return 0;
+}
+
+float calculate_energy_cost(float power_rating, float hours, float cost_per_kwh){
+    if (power_rating < 0 || hours < 0 || cost_per_kwh<0){
+        printf("Power rating, operating hours, and cost per kWh should be non-negative.\n");
+        return -1;
+    }
+    return power_rating * hours * cost_per_kwh;
+}
+
+
+7. Heat Generation in Machines
+Input: Two floating-point numbers: power usage (Watts) and efficiency (%).
+Output: Heat generated (Joules).
+Function:
+float calculate_heat(float power_usage, float efficiency);
+ 
+#include <stdio.h>
+
+float calculate_heat(float power_usage, float efficiency);
+int main(){
+    float power_usage, efficiency;
+    printf("Enter the power usage (Watts) and efficiency (percentage): ");
+    scanf("%f %f", &power_usage, &efficiency);
+    float heat_generated = calculate_heat(power_usage, efficiency);
+    printf("The heat generated is: %.2f Joules\n", heat_generated);
+    return 0;
+}
+float calculate_heat(float power_usage, float efficiency){
+    if (power_usage < 0 || efficiency < 0 || efficiency > 100){
+        printf("Power usage and efficiency should be non-negative, and efficiency should be between 0 and 100.\n");
+        return -1;
+    }
+    return power_usage*(1-efficiency/100);
+}
+
+
+8. Tool Wear Rate Calculation
+Input: A floating-point number for operating time (hours) and an integer for material type (e.g., 1 for metal, 2 for plastic).
+Output: Wear rate (percentage).
+Function:
+float calculate_wear_rate(float time, int material_type);
+ 
+//With return
+
+#include <stdio.h>
+float calculate_wear_rate(float time, int material_type);
+int main(){
+    float time;
+    int material_type;
+    printf("Enter the operating time (hours) and material type (1 for metal, 2 for plastic): ");
+    scanf("%f %d", &time, &material_type);
+    float wear_rate = calculate_wear_rate(time, material_type);
+    printf("The tool wear rate is: %.2f%%\n", wear_rate);
+    return 0;
+}
+
+float calculate_wear_rate(float time, int material_type){
+    if (time < 0 || (material_type != 1 && material_type != 2)){
+        printf("Invalid input. Time must be non-negative, and material type must be 1 or 2.\n");
+        return -1;  
+    }
+
+    float wear_rate;
+    if (material_type == 1){
+        wear_rate = time * 0.05;
+    }
+    else{
+        wear_rate = time*0.02;
+    }
+
+    return wear_rate;
+}
+
+
+9. Inventory Management
+Input: Two integers: consumption rate (units/day) and lead time (days).
+Output: Reorder quantity (units).
+Function:
+int calculate_reorder_quantity(int consumption_rate, int lead_time);
+ 
+//without return
+
+#include <stdio.h>
+// Function to calculate reorder quantity
+void calculate_reorder_quantity(int consumption_rate, int lead_time);
+
+int main() {
+    int consumption_rate, lead_time;
+    printf("Enter the consumption rate (units/day) and lead time (days): ");
+    scanf("%d %d", &consumption_rate, &lead_time);
+    calculate_reorder_quantity(consumption_rate, lead_time);
+    return 0;
+}
+
+void calculate_reorder_quantity(int consumption_rate, int lead_time) {
+    if (consumption_rate < 0 || lead_time < 0) {
+        printf("Consumption rate and lead time should be non-negative.\n");
+        return;
+    }
+    int reorder_quantity = consumption_rate * lead_time;
+    printf("The reorder quantity is: %d units\n", reorder_quantity);
+}
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate reorder quantity
+int calculate_reorder_quantity(int consumption_rate, int lead_time);
+
+int main() {
+    int consumption_rate, lead_time;
+    printf("Enter the consumption rate (units/day) and lead time (days): ");
+    scanf("%d %d", &consumption_rate, &lead_time);
+    int reorder_quantity = calculate_reorder_quantity(consumption_rate, lead_time);
+    printf("The reorder quantity is: %d units\n", reorder_quantity);
+    return 0;
+}
+
+int calculate_reorder_quantity(int consumption_rate, int lead_time) {
+    if (consumption_rate < 0 || lead_time < 0){
+        printf("Consumption rate and lead time should be non-negative.\n");
+        return -1; 
+    }
+    return consumption_rate * lead_time;
+}
+
+
+10. Quality Control: Defective Rate Analysis
+Input: Two integers: number of defective items and total batch size.
+Output: Defective rate (percentage).
+Function:
+float calculate_defective_rate(int defective_items, int batch_size);
+ 
+
+//without return
+#include <stdio.h>
+
+// Function to calculate defective rate
+void calculate_defective_rate(int defective_items, int batch_size);
+
+int main() {
+    int defective_items, batch_size;
+    printf("Enter the number of defective items and total batch size: ");
+    scanf("%d %d", &defective_items, &batch_size);
+    calculate_defective_rate(defective_items, batch_size);
+    return 0;
+}
+
+void calculate_defective_rate(int defective_items, int batch_size) {
+    if (batch_size <= 0 || defective_items < 0 || defective_items > batch_size) {
+        printf("Invalid input. Ensure batch size is positive, and defective items are within the batch size.\n");
+        return;
+    }
+    float defective_rate = ((float)defective_items / batch_size) * 100;
+    printf("The defective rate is: %.2f%%\n", defective_rate);
+}
+
+
+//with return
+#include <stdio.h>
+
+// Function to calculate defective rate
+float calculate_defective_rate(int defective_items, int batch_size);
+
+int main() {
+    int defective_items, batch_size;
+    printf("Enter the number of defective items and total batch size: ");
+    scanf("%d %d", &defective_items, &batch_size);
+    float defective_rate = calculate_defective_rate(defective_items, batch_size);
+    if (defective_rate != -1) {
+        printf("The defective rate is: %.2f%%\n", defective_rate);
+    }
+    return 0;
+}
+
+float calculate_defective_rate(int defective_items, int batch_size) {
+    if (batch_size <= 0 || defective_items < 0 || defective_items > batch_size) {
+        printf("Invalid input. Ensure batch size is positive, and defective items are within the batch size.\n");
+        return -1; 
+    }
+    return ((float)defective_items / batch_size) * 100;
+}
+
+
+11. Assembly Line Efficiency
+Input: Two integers: output rate (units/hour) and downtime (minutes).
+Output: Efficiency (percentage).
+Function:
+float calculate_efficiency(int output_rate, int downtime);
+ 
+//without return
+#include <stdio.h>
+
+// Function to calculate efficiency
+void calculate_efficiency(int output_rate, int downtime);
+
+int main(){
+    int output_rate, downtime;
+    printf("Enter the output rate (units/hour) and downtime (minutes): ");
+    scanf("%d %d", &output_rate, &downtime);
+    calculate_efficiency(output_rate, downtime);
+    return 0;
+}
+
+void calculate_efficiency(int output_rate, int downtime){
+    if (output_rate < 0 || downtime < 0){
+        printf("Invalid input. Output rate and downtime must be non-negative.\n");
+        return;
+    }
+
+    int total_time = 60; 
+    int effective_time = total_time - downtime;
+    if (effective_time < 0){
+        printf("Downtime exceeds total operational time.\n");
+        return;
+    }
+
+    float efficiency = ((float)effective_time / total_time) * 100;
+    printf("The assembly line efficiency is: %.2f%%\n", efficiency);
+}
+
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate efficiency
+float calculate_efficiency(int output_rate, int downtime);
+
+int main() {
+    int output_rate, downtime;
+    printf("Enter the output rate (units/hour) and downtime (minutes): ");
+    scanf("%d %d", &output_rate, &downtime);
+    float efficiency = calculate_efficiency(output_rate, downtime);
+    if (efficiency != -1) {
+        printf("The assembly line efficiency is: %.2f%%\n", efficiency);
+    }
+    return 0;
+}
+
+float calculate_efficiency(int output_rate, int downtime){
+    if (output_rate < 0 || downtime < 0){
+        printf("Invalid input. Output rate and downtime must be non-negative.\n");
+        return -1; 
+    }
+
+    int total_time = 60; // Total time in minutes for an hour
+    int effective_time = total_time - downtime;
+    if (effective_time < 0){
+        printf("Downtime exceeds total operational time.\n");
+        return -1;
+    }
+
+    return ((float)effective_time / total_time) * 100;
+}
+
+
+12. Paint Coverage Estimation
+Input: Two floating-point numbers: surface area (m²) and paint coverage per liter (m²/liter).
+Output: Required paint (liters).
+Function:
+float calculate_paint(float area, float coverage);
+ 
+#include <stdio.h>
+
+// Function to calculate required paint
+float calculate_paint(float surface_area, float coverage_per_liter);
+
+int main() {
+    float surface_area, coverage_per_liter;
+    printf("Enter the surface area and paint coverage per liter (m²/liter): ");
+    scanf("%f %f", &surface_area, &coverage_per_liter);
+    float required_paint = calculate_paint(surface_area, coverage_per_liter);
+    if (required_paint != -1) {
+        printf("The required paint is: %.2f liters\n", required_paint);
+    }
+    return 0;
+}
+
+float calculate_paint(float surface_area, float coverage_per_liter) {
+    if (surface_area <= 0 || coverage_per_liter <= 0) {
+        printf("Invalid input. Surface area and coverage per liter must be positive.\n");
+        return -1; 
+    }
+    return surface_area / coverage_per_liter;
+}
+
+
+13. Machine Maintenance Schedule
+Input: Two integers: current usage (hours) and maintenance interval (hours).
+Output: Hours remaining for maintenance.
+Function:
+int calculate_maintenance_schedule(int current_usage, int interval);
+ 
+//without return
+
+#include <stdio.h>
+
+// Function to calculate hours remaining for maintenance
+void calculate_maintenance_schedule(int current_usage, int interval);
+
+int main() {
+    int current_usage, interval;
+    printf("Enter the current usage (hours) and maintenance interval (hours): ");
+    scanf("%d %d", &current_usage, &interval);
+    calculate_maintenance_schedule(current_usage, interval);
+    return 0;
+}
+
+void calculate_maintenance_schedule(int current_usage, int interval) {
+    if (current_usage < 0 || interval <= 0) {
+        printf("Invalid input. Current usage must be non-negative and interval must be positive.\n");
+        return;
+    }
+    int remaining = interval - (current_usage % interval);
+    printf("Hours remaining for maintenance: %d hours\n", remaining);
+}
+
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate hours remaining for maintenance
+int calculate_maintenance_schedule(int current_usage, int interval);
+
+int main(){
+    int current_usage, interval;
+    printf("Enter the current usage (hours) and maintenance interval (hours): ");
+    scanf("%d %d", &current_usage, &interval);
+    int remaining = calculate_maintenance_schedule(current_usage, interval);
+    if (remaining != -1){
+        printf("Hours remaining for maintenance: %d hours\n", remaining);
+    }
+    return 0;
+}
+
+int calculate_maintenance_schedule(int current_usage, int interval) {
+    if (current_usage < 0 || interval <= 0){
+        printf("Invalid input. Current usage must be non-negative and interval must be positive.\n");
+        return -1; 
+    }
+    return interval - (current_usage % interval);
+}
+
+14. Cycle Time Optimization
+Input: Two integers: machine speed (units/hour) and number of operations per cycle.
+Output: Optimal cycle time (seconds).
+Function:
+float calculate_cycle_time(int speed, int operations);
+
+//without return
+
+#include <stdio.h>
+
+// Function to calculate optimal cycle time
+void calculate_cycle_time(int speed, int operations);
+
+int main() {
+    int speed, operations;
+    printf("Enter the machine speed (units/hour) and number of operations per cycle: ");
+    scanf("%d %d", &speed, &operations);
+    calculate_cycle_time(speed, operations);
+    return 0;
+}
+
+void calculate_cycle_time(int speed, int operations){
+    if (speed <= 0 || operations <= 0) {
+        printf("Invalid input. Speed and operations per cycle must be positive.\n");
+        return;
+    }
+    float cycle_time = (3600.0 / speed) * operations; 
+    printf("Optimal cycle time: %.2f seconds\n", cycle_time);
+}
+
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate optimal cycle time
+float calculate_cycle_time(int speed, int operations);
+
+int main() {
+    int speed, operations;
+    printf("Enter the machine speed (units/hour) and number of operations per cycle: ");
+    scanf("%d %d", &speed, &operations);
+    float cycle_time = calculate_cycle_time(speed, operations);
+    if (cycle_time != -1){
+        printf("Optimal cycle time: %.2f seconds\n", cycle_time);
+    }
+    return 0;
+}
+
+float calculate_cycle_time(int speed, int operations){
+    if (speed <= 0 || operations <= 0){
+        printf("Invalid input. Speed and operations per cycle must be positive.\n");
+        return -1; 
+    }
+    return (3600.0 / speed) * operations; 
+}
+
+
+1. Write a function that takes the original price of an item and a discount percentage as parameters. The function should return the discounted price without modifying the original price.
+Function Prototype:
+void calculateDiscount(float originalPrice, float discountPercentage);
+
+
+#include <stdio.h>
+
+// Function to calculate the discounted price
+float calculateDiscount(float originalPrice, float discountPercentage);
+
+int main() {
+    float originalPrice, discountPercentage;
+    printf("Enter the original price and discount percentage: ");
+    scanf("%f %f", &originalPrice, &discountPercentage);
+    float discountedPrice = calculateDiscount(originalPrice, discountPercentage);
+    if (discountedPrice != -1) {
+        printf("Discounted price: %.2f\n", discountedPrice);
+    }
+    return 0;
+}
+
+float calculateDiscount(float originalPrice, float discountPercentage) {
+    if (originalPrice < 0 || discountPercentage < 0 || discountPercentage > 100) {
+        printf("Invalid input. Original price and discount percentage must be non-negative, and percentage should not exceed 100.\n");
+        return -1; // Return -1 for invalid input
+    }
+    return originalPrice - (originalPrice * discountPercentage / 100.0);
+}
+
+
+2. Create a function that takes the current inventory count of a product and a quantity to add or remove. The function should return the new inventory count without changing the original count.
+Function Prototype:
+int updateInventory(int currentCount, int changeQuantity)
+
+//without return
+
+#include <stdio.h>
+
+// Function to calculate and print the new inventory count
+void updateInventory(int currentCount, int changeQuantity);
+
+int main() {
+    int currentCount, changeQuantity;
+    printf("Enter the current inventory count and quantity to add/remove: ");
+    scanf("%d %d", &currentCount, &changeQuantity);
+    updateInventory(currentCount, changeQuantity);
+    return 0;
+}
+
+void updateInventory(int currentCount, int changeQuantity) {
+    if (currentCount < 0) {
+        printf("Invalid input. Current inventory count cannot be negative.\n");
+        return;
+    }
+    int newCount = currentCount + changeQuantity;
+    printf("New inventory count: %d\n", newCount);
+}
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate the new inventory count
+int updateInventory(int currentCount, int changeQuantity);
+
+int main() {
+    int currentCount, changeQuantity;
+    printf("Enter the current inventory count and quantity to add/remove: ");
+    scanf("%d %d", &currentCount, &changeQuantity);
+    int newCount = updateInventory(currentCount, changeQuantity);
+    if (newCount != -1) {
+        printf("New inventory count: %d\n", newCount);
+    }
+    return 0;
+}
+
+int updateInventory(int currentCount, int changeQuantity) {
+    if (currentCount < 0) {
+        printf("Invalid input. Current inventory count cannot be negative.\n");
+        return -1; 
+    }
+    return currentCount + changeQuantity;
+}
+
+
+. Implement a function that accepts the price of an item and a sales tax rate. The function should return the total price after tax without altering the original price.
+Function Prototype:
+float calculateTotalPrice(float itemPrice, float taxRate);
+
+//without return
+
+#include <stdio.h>
+
+// Function to calculate and print the total price after tax
+void calculateTotalPrice(float itemPrice, float taxRate);
+
+int main() {
+    float itemPrice, taxRate;
+    printf("Enter the item price and tax rate (as a percentage): ");
+    scanf("%f %f", &itemPrice, &taxRate);
+    calculateTotalPrice(itemPrice, taxRate);
+    return 0;
+}
+
+void calculateTotalPrice(float itemPrice, float taxRate) {
+    if (itemPrice < 0 || taxRate < 0){
+        printf("Invalid input. Item price and tax rate must be non-negative.\n");
+        return;
+    }
+    float totalPrice = itemPrice + (itemPrice * taxRate / 100.0);
+    printf("Total price after tax: %.2f\n", totalPrice);
+}
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate the total price after tax
+float calculateTotalPrice(float itemPrice, float taxRate);
+
+int main() {
+    float itemPrice, taxRate;
+    printf("Enter the item price and tax rate (as a percentage): ");
+    scanf("%f %f", &itemPrice, &taxRate);
+    float totalPrice = calculateTotalPrice(itemPrice, taxRate);
+    if (totalPrice != -1) {
+        printf("Total price after tax: %.2f\n", totalPrice);
+    }
+    return 0;
+}
+
+float calculateTotalPrice(float itemPrice, float taxRate){
+    if (itemPrice < 0 || taxRate < 0){
+        printf("Invalid input. Item price and tax rate must be non-negative.\n");
+        return -1; 
+    }
+    return itemPrice + (itemPrice * taxRate / 100.0);
+}
+
+4. Design a function that takes the amount spent by a customer and returns the loyalty points earned based on a specific conversion rate (e.g., 1 point for every $10 spent). The original amount spent should remain unchanged.
+Function Prototype:
+int calculateLoyaltyPoints(float amountSpent);
+
+//without return
+
+#include <stdio.h>
+
+// Function to calculate and print the total price after tax
+void calculateTotalPrice(float itemPrice, float taxRate);
+
+int main() {
+    float itemPrice, taxRate;
+    printf("Enter the item price and tax rate (as a percentage): ");
+    scanf("%f %f", &itemPrice, &taxRate);
+    calculateTotalPrice(itemPrice, taxRate);
+    return 0;
+}
+
+void calculateTotalPrice(float itemPrice, float taxRate) {
+    if (itemPrice < 0 || taxRate < 0) {
+        printf("Invalid input. Item price and tax rate must be non-negative.\n");
+        return;
+    }
+    float totalPrice = itemPrice + (itemPrice * taxRate / 100.0);
+    printf("Total price after tax: %.2f\n", totalPrice);
+}
+
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate the total price after tax
+float calculateTotalPrice(float itemPrice, float taxRate);
+
+int main() {
+    float itemPrice, taxRate;
+    printf("Enter the item price and tax rate (as a percentage): ");
+    scanf("%f %f", &itemPrice, &taxRate);
+    float totalPrice = calculateTotalPrice(itemPrice, taxRate);
+    if (totalPrice != -1) {
+        printf("Total price after tax: %.2f\n", totalPrice);
+    }
+    return 0;
+}
+
+float calculateTotalPrice(float itemPrice, float taxRate) {
+    if (itemPrice < 0 || taxRate < 0) {
+        printf("Invalid input. Item price and tax rate must be non-negative.\n");
+        return -1; 
+    }
+    return itemPrice + (itemPrice * taxRate / 100.0);
+}
+
+
+5. Write a function that receives an array of item prices and the number of items. The function should return the total cost of the order without modifying the individual item prices.
+Function Prototype:
+float calculateOrderTotal(float prices[], int numberOfItems);
+
+//without return
+
+#include <stdio.h>
+
+// Function to calculate and print the total cost of the order
+void calculateOrderTotal(float prices[], int numberOfItems);
+
+int main() {
+    int numberOfItems;
+    printf("Enter the number of items: ");
+    scanf("%d", &numberOfItems);
+    
+    float prices[numberOfItems];
+    
+    printf("Enter the prices of the items:\n");
+    for (int i = 0; i < numberOfItems; i++) {
+        scanf("%f", &prices[i]);
+    }
+    
+    calculateOrderTotal(prices, numberOfItems);
+    return 0;
+}
+
+void calculateOrderTotal(float prices[], int numberOfItems) {
+    float total = 0;
+    
+    for (int i = 0; i < numberOfItems; i++) {
+        total += prices[i];
+    }
+    
+    printf("Total cost of the order: %.2f\n", total);
+}
+
+
+//with return
+#include <stdio.h>
+
+// Function to calculate the total cost of the order
+float calculateOrderTotal(float prices[], int numberOfItems);
+
+int main() {
+    int numberOfItems;
+    printf("Enter the number of items: ");
+    scanf("%d", &numberOfItems);
+    
+    float prices[numberOfItems];
+    
+    printf("Enter the prices of the items:\n");
+    for (int i = 0; i < numberOfItems; i++) {
+        scanf("%f", &prices[i]);
+    }
+    
+    float total = calculateOrderTotal(prices, numberOfItems);
+    printf("Total cost of the order: %.2f\n", total);
+    
+    return 0;
+}
+
+float calculateOrderTotal(float prices[], int numberOfItems) {
+    float total = 0;
+    
+    for (int i = 0; i < numberOfItems; i++) {
+        total += prices[i];
+    }
+    
+    return total;
+}
+
+
+6. Create a function that takes an item's price and a refund percentage as input. The function should return the refund amount without changing the original item's price.
+Function Prototype:
+float calculateRefund(float itemPrice, float refundPercentage);
+
+#include <stdio.h>
+
+// Function to calculate and print the refund amount
+void calculateRefund(float itemPrice, float refundPercentage);
+
+int main() {
+    float itemPrice, refundPercentage;
+    printf("Enter the item's price and refund percentage: ");
+    scanf("%f %f", &itemPrice, &refundPercentage);
+    calculateRefund(itemPrice, refundPercentage);
+    return 0;
+}
+
+void calculateRefund(float itemPrice, float refundPercentage) {
+    if (itemPrice < 0 || refundPercentage < 0) {
+        printf("Invalid input. Price and refund percentage cannot be negative.\n");
+        return;
+    }
+    float refundAmount = itemPrice * (refundPercentage / 100.0);
+    printf("Refund amount: %.2f\n", refundAmount);
+}
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate the refund amount
+float calculateRefund(float itemPrice, float refundPercentage);
+
+int main() {
+    float itemPrice, refundPercentage;
+    printf("Enter the item's price and refund percentage: ");
+    scanf("%f %f", &itemPrice, &refundPercentage);
+    float refundAmount = calculateRefund(itemPrice, refundPercentage);
+    if (refundAmount != -1) {
+        printf("Refund amount: %.2f\n", refundAmount);
+    }
+    return 0;
+}
+
+float calculateRefund(float itemPrice, float refundPercentage) {
+    if (itemPrice < 0 || refundPercentage < 0) {
+        printf("Invalid input. Price and refund percentage cannot be negative.\n");
+        return -1; // Return -1 for invalid input
+    }
+    return itemPrice * (refundPercentage / 100.0);
+}
+
+
+7. Implement a function that takes the weight of a package and calculates shipping costs based on weight brackets (e.g., $5 for up to 5kg, $10 for 5-10kg). The original weight should remain unchanged.
+Function Prototype:
+float calculateShippingCost(float weight)  
+
+
+#include <stdio.h>
+
+// Function to calculate the shipping cost based on weight
+float calculateShippingCost(float weight);
+
+int main() {
+    float weight;
+    printf("Enter the weight of the package: ");
+    scanf("%f", &weight);
+    float shippingCost = calculateShippingCost(weight);
+    if (shippingCost != -1) {
+        printf("Shipping cost for %.2f kg: $%.2f\n", weight, shippingCost);
+    }
+    return 0;
+}
+
+float calculateShippingCost(float weight) {
+    if (weight <= 0) {
+        printf("Invalid weight. Weight must be positive.\n");
+        return -1; // Return -1 for invalid input
+    }
+
+    if (weight <= 5) {
+        return 5;
+    } else if (weight <= 10) {
+        return 10;
+    } else {
+        return 15; // for weight above 10kg
+    }
+}
+
+8. Design a function that converts an amount from one currency to another based on an exchange rate provided as input. The original amount should not be altered.
+Function Prototype:
+float convertCurrency(float amount, float exchangeRate);
+ 
+ //without return
+#include <stdio.h>
+
+// Function to calculate and print the converted currency amount
+void convertCurrency(float amount, float exchangeRate);
+
+int main() {
+    float amount, exchangeRate;
+    printf("Enter the amount and exchange rate: ");
+    scanf("%f %f", &amount, &exchangeRate);
+    convertCurrency(amount, exchangeRate);
+    return 0;
+}
+
+void convertCurrency(float amount, float exchangeRate) {
+    if (amount < 0 || exchangeRate <= 0) {
+        printf("Invalid input. Amount and exchange rate must be positive.\n");
+        return;
+    }
+    
+    float convertedAmount = amount * exchangeRate;
+    printf("Converted amount: %.2f\n", convertedAmount);
+}
+
+
+//with return
+
+#include <stdio.h>
+
+// Function to calculate the converted currency amount
+float convertCurrency(float amount, float exchangeRate);
+
+int main() {
+    float amount, exchangeRate;
+    printf("Enter the amount and exchange rate: ");
+    scanf("%f %f", &amount, &exchangeRate);
+    float convertedAmount = convertCurrency(amount, exchangeRate);
+    if (convertedAmount != -1) {
+        printf("Converted amount: %.2f\n", convertedAmount);
+    }
+    return 0;
+}
+
+float convertCurrency(float amount, float exchangeRate) {
+    if (amount < 0 || exchangeRate <= 0) {
+        printf("Invalid input. Amount and exchange rate must be positive.\n");
+        return -1;
+    }
+    return amount * exchangeRate;
+}
+
+
+. Write a function that takes two prices from different vendors and returns the lower price without modifying either input price.
+Function Prototype:
+float findLowerPrice(float priceA, float priceB);
+
+#include <stdio.h>
+
+// Function to return the lower of two prices
+float findLowerPrice(float priceA, float priceB);
+
+int main() {
+    float priceA, priceB;
+    printf("Enter two prices: ");
+    scanf("%f %f", &priceA, &priceB);
+    float lowerPrice = findLowerPrice(priceA, priceB);
+    printf("The lower price is: %.2f\n", lowerPrice);
+    return 0;
+}
+
+float findLowerPrice(float priceA, float priceB) {
+    if (priceA < priceB) {
+        return priceA;
+    } else {
+        return priceB;
+    }
+}
+
+10. Create a function that checks if a customer is eligible for a senior citizen discount based on their age. The function should take age as input and return whether they qualify without changing the age value.
+Function Prototype:
+bool isEligibleForSeniorDiscount(int age)
+
+//with return
+
+#include <stdio.h>
+
+// Function to check eligibility for a senior citizen discount
+void isEligibleForSeniorDiscount(int age);
+
+int main() {
+    int age;
+    printf("Enter the customer's age: ");
+    scanf("%d", &age);
+    isEligibleForSeniorDiscount(age);
+    return 0;
+}
+
+void isEligibleForSeniorDiscount(int age) {
+    if (age >= 65) {
+        printf("The customer is eligible for a senior citizen discount.\n");
+    } else {
+        printf("The customer is not eligible for a senior citizen discount.\n");
+    }
+}
+
+//with return
+
+#include <stdio.h>
+
+
+// Function to check eligibility for a senior citizen discount
+int isEligibleForSeniorDiscount(int age);
+
+int main() {
+    int age;
+    printf("Enter the customer's age: ");
+    scanf("%d", &age);
+    if (isEligibleForSeniorDiscount(age)) {
+        printf("The customer is eligible for a senior citizen discount.\n");
+    } else {
+        printf("The customer is not eligible for a senior citizen discount.\n");
+    }
+    return 0;
+}
+
+int isEligibleForSeniorDiscount(int age) {
+    return age >= 65;
+}
