@@ -1,0 +1,1164 @@
+//problems on pointer
+
+1.
+
+#include <stdio.h>
+
+int main(){
+    int a=10;
+    int b=20;
+
+    int *const ptr = &a;
+
+    printf("Initial value of num: %d\n", *ptr);
+    *ptr = 15;
+    printf("Value of num after modification: %d\n", *ptr);
+
+    
+    
+    //ptr = &b; //error: assignment of read-only variable 'ptr'
+
+    return 0;
+}
+
+
+2.
+
+
+#include <stdio.h>
+
+int main(){
+    int a=10;
+    int const *ptr = &a;
+
+    printf("Initial value: %d\n", *ptr);
+    //*ptr = 20; // assignment of read-only location '*ptr'
+
+    return 0;
+}
+
+
+3.
+
+
+#include <stdio.h>
+
+int main(){
+    int value=10;
+    const int *const ptr=&value;
+
+    printf("Value: %d\n", *ptr);
+    printf("Address: %p\n", ptr);
+
+    
+    // *ptr =20; // Error: assignment of read-only location '*ptr'
+    // int b =30;
+    // ptr =&b; //error: assignment of read-only variable 'ptr'
+
+    return 0;
+}
+
+4.
+
+#include <stdio.h>
+
+int main(){
+    int a=10, b=20, c=30;
+    int *const ptr = &a; 
+
+    printf("Initial values:\n");
+    printf("a =%d, b =%d, c =%d\n", a, b, c);
+   
+    *ptr =15;
+    printf("After modifying a through ptr:\n");
+    printf("a =%d, b =%d, c =%d\n", a,b,c);
+
+   
+    // ptr = &b; 
+
+    int *const ptr2 = &b;
+    *ptr2 = 25;
+    printf("After modifying b through ptr2:\n");
+    printf("a =%d, b =%d, c =%d\n", a, b, c);
+
+    int *const ptr3 = &c;
+    *ptr3 =35;
+    printf("After modifying c through ptr3:\n");
+    printf("a =%d, b =%d, c =%d\n", a, b, c);
+
+    return 0;
+}
+
+
+5.
+
+
+#include <stdio.h>
+
+int main(){
+    const int a=10;
+    const int b=20;
+    int const *ptrA=&a;
+    int const *ptrB=&b;
+
+    if(*ptrA == *ptrB){
+        printf("The integers are equal.\n");
+    }
+    else{
+        printf("The integers are not equal.\n");
+    }
+
+    return 0;
+}
+
+
+6.
+
+#include <stdio.h>
+
+int main(){
+    int a=10;
+    const int *ptr =&a;
+
+    if(*ptr==10){
+        printf("Pointer is pointing to the value 10.\n");
+    } 
+    else{
+        printf("Pointer is not pointing to the value 10.\n");
+    }
+
+    return 0;
+}
+
+
+7.
+
+#include <stdio.h>
+
+int main(){
+    int a = 10;
+    int b = 20;
+    int *const ptr1 =&a;
+    int *const ptr2 =&b;
+
+    if(ptr1>ptr2){
+        printf("ptr1 points to a higher address than ptr2\n");
+    }
+    else{
+        printf("ptr1 points to a lower address than ptr2\n");
+    }
+
+    return 0;
+}
+
+
+8.//doubt
+
+9.//doubt
+
+
+FN
+
+1.
+
+#include <stdio.h>
+int main(){
+    int a=4;
+    int *p=&a;
+    int b=*p;
+    printf("a= %d",b);
+}
+
+2.
+
+#include<stdio.h>
+int main(){
+ 
+    float b=3.14;
+    printf("original value= %f\n",b);
+    float n;
+ 
+    float *pfloat =&b;
+ 
+
+    *pfloat=*pfloat+10;
+    n= *pfloat;
+    
+    printf("Modified Value= %f\n",n);
+
+
+
+
+}
+
+3.
+
+#include <stdio.h>
+
+int sumArray(int *,int);
+
+
+int main() {
+    int arr[]={3,4,3,5,31,3};
+    int size =6;
+    int result = sumArray(arr, size);
+    printf("Sum of array elements: %d\n", result);
+    return 0;
+}
+
+int sumArray(int *arr, int size){
+    int sum = 0;
+    for (int i=0; i<size; i++){
+        sum += *(arr+i);
+    }
+    return sum;
+}
+
+4.
+
+#include <stdio.h>
+
+int main(){
+    int *ptr = NULL;
+    if (ptr==NULL){
+        printf("The pointer is null, cannot dereference it.\n");
+    } 
+    else{
+        printf("The value pointed to by ptr is %d\n", *ptr);
+    }
+
+    return 0;
+}
+
+5.
+
+#include <stdio.h>
+
+int main(){
+    int *wp; 
+    *wp=20;
+    printf("Value at wild pointer: %d\n", wp);
+
+    return 0;
+}
+
+//different values are printed in each execution
+
+6.
+
+#include <stdio.h>
+
+int main(){
+    int num=10;
+    int *ptr1=&num;
+    int *ptr2=ptr1;
+
+    printf("Value of num using ptr1: %d\n", *ptr1);
+    printf("Value of num using ptr2: %d\n", *ptr2);
+
+    return 0;
+}
+
+7.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, i;
+    int *arr;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    arr = (int *)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    printf("Enter %d integers:\n", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+   
+    printf("The elements of the array are:\n");
+    for (i = 0; i < n; i++) {
+        printf("%d ", *(arr + i));
+    }
+    printf("\n");
+
+    free(arr);
+
+    return 0;
+}
+
+8.
+
+#include <stdio.h>
+
+
+int add(int a, int b){
+    return a + b;
+}
+
+int main(){
+    
+    int (*func_ptr)(int, int);
+
+    func_ptr = add;
+
+    int result1 = func_ptr(5, 10);
+    int result2 = func_ptr(20, 30);
+
+    printf("Result of 5 + 10 = %d\n", result1);
+    printf("Result of 20 + 30 = %d\n", result2);
+
+    return 0;
+}
+
+9.
+
+#include <stdio.h>
+
+
+void constant_pointer_example();
+void pointer_to_constant_data_example();
+
+int main(){
+    constant_pointer_example();
+    pointer_to_constant_data_example();
+    return 0;
+}
+void constant_pointer_example(){
+    int a = 10;
+    int b = 20;
+    int *const ptr = &a; 
+
+    printf("Value pointed to by ptr: %d\n", *ptr);
+
+    // ptr = &b;
+
+    *ptr = 30; 
+    printf("New value pointed to by ptr: %d\n", *ptr);
+}
+
+void pointer_to_constant_data_example(){
+    int x = 100;
+    int y = 200;
+    int const *ptr = &x; 
+
+    printf("Value pointed to by ptr: %d\n", *ptr);
+
+    // *ptr = 300; 
+
+    ptr = &y; 
+    printf("New value pointed to by ptr: %d\n", *ptr);
+}
+
+
+10.
+
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+
+    int *ptr1 = &a;
+    int *ptr2 = &b;
+
+    printf("Address of ptr1:%p\n",ptr1);
+    printf("Address of ptr2:%p\n",ptr2);
+
+    if (ptr1 > ptr2){
+        printf("Pointer ptr1 points to an address greater than ptr2\n");
+    } else if (ptr1 < ptr2){
+        printf("Pointer ptr1 points to an address less than ptr2\n");
+    } else{
+        printf("Pointer ptr1 and ptr2 point to the same address\n");
+    }
+
+    return 0;
+}
+
+1. Machine Efficiency Calculation
+Requirements:
+Input: Machine's input power and output power as floats.
+Output: Efficiency as a float.
+Function: Accepts pointers to input power and output power, calculates efficiency, and updates the result via a pointer.
+Constraints: Efficiency = (Output Power / Input Power) * 100.
+ 
+#include <stdio.h>
+
+// Function prototype
+void calcEff(const float *in, const float *out, float *eff);
+
+int main(){
+    float in, out, eff;
+    printf("Input Power: ");
+    scanf("%f", &in);
+    printf("Output Power: ");
+    scanf("%f", &out);
+    calcEff(&in, &out, &eff);
+    printf("Efficiency: %.2f%%\n", eff);
+    return 0;
+}
+void calcEff(const float *in, const float *out, float *eff){
+    if (*in !=0){
+        *eff = (*out / *in) * 100.0;
+    } else{
+        *eff = 0.0;
+    }
+}
+
+2. Conveyor Belt Speed Adjustment
+Requirements:
+Input: Current speed (float) and adjustment value (float).
+Output: Updated speed.
+Function: Uses pointers to adjust the speed dynamically.
+Constraints: Ensure speed remains within the allowable range (0 to 100 units).
+ 
+#include <stdio.h>
+
+// Function prototype
+static void adjSpd(float *s, const float *adj);
+
+static void adjSpd(float *s, const float *adj){
+    *s += *adj;
+    if (*s>100.0){
+        *s = 100.0;
+    }
+    else if(*s<0){
+        *s = 0.0;
+    }
+}
+
+int main(){
+    float s, adj;
+    printf("Enter current speed (0-100): ");
+    scanf("%f", &s);
+    printf("Enter adjustment value: ");
+    scanf("%f", &adj);
+    adjSpd(&s, &adj);
+    printf("Updated speed: %.2f\n", s);
+    return 0;
+}
+
+
+3. Inventory Management
+Requirements:
+Input: Current inventory levels of raw materials (array of integers).
+Output: Updated inventory levels.
+Function: Accepts a pointer to the inventory array and modifies values based on production or consumption.
+Constraints: No inventory level should drop below zero.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void updateInventory(int *inv, const int *change, int size);
+
+int main(){
+    int n;
+
+    printf("Enter number of raw materials: ");
+    scanf("%d", &n);
+
+    int inv[n], change[n];
+
+    printf("Enter current inventory levels: ");
+    for (int i=0; i <n; i++){
+        scanf("%d", &inv[i]);
+    }
+
+    printf("Enter changes in inventory levels (positive for addition, negative for consumption): ");
+    for (int i=0; i<n; i++){
+        scanf("%d", &change[i]);
+    }
+
+    updateInventory(inv, change, n);
+
+    printf("Updated inventory levels: ");
+    for (int i=0; i<n; i++){
+        printf("%d ", inv[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+static void updateInventory(int *inv, const int *change, int size) {
+    for (int i =0; i <size; i++){
+        inv[i] += change[i];
+        if (inv[i] <0){
+            inv[i] =0; 
+        }
+    }
+}
+
+4. Robotic Arm Positioning
+Requirements:
+Input: Current x, y, z coordinates (integers) and movement delta values.
+Output: Updated coordinates.
+Function: Takes pointers to x, y, z and updates them based on delta values.
+Constraints: Validate that the coordinates stay within the workspace boundaries.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void updatePosition(int *x, int *y, int *z, const int *dx, const int *dy, const int *dz);
+
+static void updatePosition(int *x, int *y, int *z, const int *dx, const int *dy, const int *dz){
+    *x += *dx;
+    *y += *dy;
+    *z += *dz;
+
+    if (*x<0) *x=0;
+    if (*x>100) *x=100;
+
+    if (*y<0) *y=0;
+    if (*y>100) *y=100;
+
+    if (*z<0) *z=0;
+    if (*z>100) *z=100;
+}
+
+int main(){
+    int x, y, z, dx, dy, dz;
+
+    printf("Enter current coordinates (x y z): ");
+    scanf("%d %d %d", &x, &y, &z);
+
+    printf("Enter movement deltas (dx dy dz): ");
+    scanf("%d %d %d", &dx, &dy, &dz);
+
+    updatePosition(&x, &y, &z, &dx, &dy, &dz);
+
+    printf("Updated coordinates: (%d, %d, %d)\n", x, y, z);
+    return 0;
+}
+
+
+5. Temperature Control in Furnace
+Requirements:
+Input: Current temperature (float) and desired range.
+Output: Adjusted temperature.
+Function: Uses pointers to adjust temperature within the range.
+Constraints: Temperature adjustments must not exceed safety limits.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void adjustTemperature(float *temp, const float *minTemp, const float *maxTemp);
+
+
+int main(){
+    float temp, minTemp, maxTemp;
+
+    printf("Enter current temperature: ");
+    scanf("%f", &temp);
+
+    printf("Enter minimum safe temperature: ");
+    scanf("%f", &minTemp);
+
+    printf("Enter maximum safe temperature: ");
+    scanf("%f", &maxTemp);
+
+    adjustTemperature(&temp, &minTemp, &maxTemp);
+
+    printf("Adjusted temperature: %.2f\n", temp);
+    return 0;
+}
+static void adjustTemperature(float *temp, const float *minTemp, const float *maxTemp){
+    if (*temp < *minTemp){
+        *temp = *minTemp;
+    } else if (*temp > *maxTemp){
+        *temp = *maxTemp; 
+    }
+}
+
+6. Tool Life Tracker
+Requirements:
+Input: Current tool usage hours (integer) and maximum life span.
+Output: Updated remaining life (integer).
+Function: Updates remaining life using pointers.
+Constraints: Remaining life cannot go below zero.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void updateLife(int *u, const int *m, int *r);
+
+static void updateLife(int *u, const int *m, int *r){
+    *r=*m-*u;
+
+    if (*r < 0){
+        *r = 0;
+    }
+}
+int main(){
+    int u, m, r;
+    printf("Enter current tool usage hours: ");
+    scanf("%d", &u);
+    printf("Enter maximum tool life span in hours: ");
+    scanf("%d", &m);
+    updateLife(&u, &m, &r);
+    printf("Remaining tool life: %d hours\n", r);
+    return 0;
+}
+
+
+7. Material Weight Calculator
+Requirements:
+Input: Weights of materials (array of floats).
+Output: Total weight (float).
+Function: Accepts a pointer to the array and calculates the sum of weights.
+Constraints: Ensure no negative weights are input.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void calcWeight(const float *w, int size, float *total);
+
+int main(){
+    int n;
+
+    printf("Enter number of materials: ");
+    scanf("%d", &n);
+
+    float w[n], total;
+
+    printf("Enter the weights of materials: ");
+    for (int i = 0; i < n; i++){
+        scanf("%f", &w[i]);
+    }
+
+    calcWeight(w, n, &total);
+
+    printf("Total weight: %.2f\n", total);
+    return 0;
+}
+
+static void calcWeight(const float *w, int size, float *total){
+    *total = 0.0;
+    for (int i =0; i <size; i++){
+        if (w[i]<0){
+            printf("Negative weight encountered. Setting to 0.\n");
+            *total += 0; 
+        }
+        else{
+            *total += w[i];
+        }
+    }
+}
+
+
+8. Welding Machine Configuration
+Requirements:
+Input: Voltage (float) and current (float).
+Output: Updated machine configuration.
+Function: Accepts pointers to voltage and current and modifies their values.
+Constraints: Validate that voltage and current stay within specified operating ranges.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void configureMachine(float *v, float *c);
+
+int main(){
+    float v, c;
+
+    printf("Enter current voltage: ");
+    scanf("%f", &v);
+    printf("Enter current current: ");
+    scanf("%f", &c);
+    configureMachine(&v, &c);
+    printf("Updated voltage: %.2f\n", v);
+    printf("Updated current: %.2f\n", c);
+
+    return 0;
+}
+static void configureMachine(float *v, float *c){
+   
+    const float minV = 10.0, maxV = 100.0, minC = 5.0, maxC = 50.0;
+
+    if (*v<minV) *v =minV;
+    if (*v>maxV) *v = maxV;
+
+    if (*c<minC) *c = minC;
+    if (*c>maxC) *c = maxC;
+}
+
+9. Defect Rate Analyzer
+Requirements:
+Input: Total products and defective products (integers).
+Output: Defect rate (float).
+Function: Uses pointers to calculate defect rate = (Defective / Total) * 100.
+Constraints: Ensure total products > defective products.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void calcDefRate(int *t, int *d, float *r);
+
+static void calcDefRate(int *t, int *d, float *r){
+    if (*t <= *d){
+        printf("Total products must be greater than defective products.\n");
+        return;
+    }
+
+    *r=((float)*d / *t) * 100; 
+}
+
+int main(){
+    int t, d;
+    float r;
+
+    printf("Enter total products: ");
+    scanf("%d", &t);
+    printf("Enter defective products: ");
+    scanf("%d", &d);
+
+    calcDefRate(&t, &d, &r);
+
+    if (t>d){
+        printf("Defect rate: %.2f%%\n", r);
+    }
+
+    return 0;
+}
+
+
+10. Assembly Line Optimization
+Requirements:
+Input: Timing intervals between stations (array of floats).
+Output: Adjusted timing intervals.
+Function: Modifies the array values using pointers.
+Constraints: Timing intervals must remain positive.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void adjust(float *t, int n);
+
+static void adjust(float *t, int n){
+    for (int i=0; i<n; i++){
+        if (t[i] <0){
+            t[i] =0.0; 
+        }
+    }
+}
+
+int main(){
+    int n;
+
+    printf("Enter number of stations: ");
+    scanf("%d", &n);
+
+    float t[n];
+
+    printf("Enter timing intervals: ");
+    for (int i = 0; i < n; i++){
+        scanf("%f", &t[i]);
+    }
+
+    adjust(t, n);
+
+    printf("Adjusted timings: ");
+    for (int i = 0; i < n; i++){
+        printf("%.2f ", t[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+
+11. CNC Machine Coordinates
+Requirements:
+Input: Current x, y, z coordinates (floats).
+Output: Updated coordinates.
+Function: Accepts pointers to x, y, z values and updates them.
+Constraints: Ensure updated coordinates remain within machine limits.
+ 
+12. Energy Consumption Tracker
+Requirements:
+Input: Energy usage data for machines (array of floats).
+Output: Total energy consumed (float).
+Function: Calculates and updates total energy using pointers.
+Constraints: Validate that no energy usage value is negative.
+ 
+
+#include <stdio.h>
+
+// Function prototype
+static void calcEnergy(float *e, int n, float *total);
+
+static void calcEnergy(float *e, int n, float *total){
+    *total = 0.0; 
+    for (int i = 0; i < n; i++){
+        if (e[i] < 0){
+            e[i] = 0.0;
+        }
+        *total += e[i]; 
+    }
+}
+
+int main(){
+    int n;
+    printf("Enter number of machines: ");
+    scanf("%d", &n);
+
+    float e[n], total;
+
+    printf("Enter energy usage for each machine: ");
+    for (int i = 0; i < n; i++){
+        scanf("%f", &e[i]);
+    }
+
+    calcEnergy(e, n, &total);
+    printf("Total energy consumed: %.2f\n", total);
+
+    return 0;
+}
+
+
+13. Production Rate Monitor
+Requirements:
+Input: Current production rate (integer) and adjustment factor.
+Output: Updated production rate.
+Function: Modifies the production rate via a pointer.
+Constraints: Production rate must be within permissible limits.
+ 
+#include <stdio.h>
+
+static void adjustRate(int *rate, int factor);
+
+static void adjustRate(int *rate, int factor){
+    const int minRate = 10, maxRate = 500; 
+
+    *rate += factor;
+
+    if (*rate<minRate) *rate = minRate;
+    if (*rate>maxRate) *rate = maxRate;
+}
+
+int main(){
+    int rate, factor;
+
+    printf("Enter current production rate: ");
+    scanf("%d", &rate);
+    printf("Enter adjustment factor: ");
+    scanf("%d", &factor);
+
+    adjustRate(&rate, factor);
+
+    printf("Updated production rate: %d\n", rate);
+
+    return 0;
+}
+
+
+14. Maintenance Schedule Update
+Requirements:
+Input: Current and next maintenance dates (string).
+Output: Updated maintenance schedule.
+Function: Accepts pointers to the dates and modifies them.
+Constraints: Ensure next maintenance date is always later than the current date.
+ 
+#include <stdio.h>
+#include <string.h>
+
+// Function prototype
+static void updateSchedule(char *current, char *next);
+static void updateSchedule(char *current, char *next){
+    if (strcmp(next, current) <= 0) {
+        printf("Error: Next maintenance date must be later than the current date.\n");
+        strcpy(next, "Invalid");
+    }
+}
+
+int main(){
+    char current[20], next[20];
+
+    printf("Enter current maintenance date (YYYY-MM-DD): ");
+    scanf("%s", current);
+    printf("Enter next maintenance date (YYYY-MM-DD): ");
+    scanf("%s", next);
+    updateSchedule(current, next);
+
+    printf("Updated next maintenance date: %s\n", next);
+
+    return 0;
+}
+
+
+15. Product Quality Inspection
+Requirements:
+Input: Quality score (integer) for each product in a batch.
+Output: Updated quality metrics.
+Function: Updates quality metrics using pointers.
+Constraints: Ensure quality scores remain within 0-100.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void updateQuality(int *scores, int n);
+
+static void updateQuality(int *scores, int n){
+    const int minScore = 0, maxScore = 100; 
+
+    for (int i=0; i<n; i++){
+        if (scores[i] < minScore){
+            scores[i] = minScore; 
+        }
+        if (scores[i] > maxScore){
+            scores[i] = maxScore; 
+        }
+    }
+}
+
+int main(){
+    int n;
+
+    printf("Enter number of products in batch: ");
+    scanf("%d", &n);
+
+    int scores[n];
+
+    printf("Enter quality scores for each product: ");
+    for (int i = 0; i < n; i++){
+        scanf("%d", &scores[i]);
+    }
+
+    updateQuality(scores, n);
+
+    printf("Updated quality scores: ");
+    for (int i = 0; i<n; i++){
+        printf("%d ", scores[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+16. Warehouse Space Allocation
+Requirements:
+Input: Space used for each section (array of integers).
+Output: Updated space allocation.
+Function: Adjusts space allocation using pointers.
+Constraints: Ensure total space used does not exceed warehouse capacity.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void adjustSpace(int *space, int n, int capacity);
+
+static void adjustSpace(int *space, int n, int capacity) {
+    int total = 0;
+
+    for (int i = 0; i < n; i++){
+        total += space[i];
+    }
+
+    if (total > capacity){
+        float factor = (float)capacity / total;
+        for (int i = 0; i < n; i++){
+            space[i] = (int)(space[i] * factor);
+        }
+    }
+}
+
+int main(){
+    int n, capacity;
+
+    printf("Enter number of sections in the warehouse: ");
+    scanf("%d", &n);
+
+    int space[n];
+
+    printf("Enter space used for each section: ");
+    for (int i = 0; i < n; i++){
+        scanf("%d", &space[i]);
+    }
+
+    printf("Enter total warehouse capacity: ");
+    scanf("%d", &capacity);
+
+    adjustSpace(space, n, capacity);
+
+    printf("Updated space allocation: ");
+    for (int i = 0; i < n; i++){
+        printf("%d ", space[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+17. Packaging Machine Settings
+Requirements:
+Input: Machine settings like speed (float) and wrap tension (float).
+Output: Updated settings.
+Function: Modifies settings via pointers.
+Constraints: Validate settings remain within safe operating limits.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void updateSettings(float *speed, float *tension);
+
+static void updateSettings(float *speed, float *tension){
+    const float minSpeed = 10.0f, maxSpeed = 100.0; 
+    const float minTension = 1.0f, maxTension = 10.0; 
+
+    // Validate and adjust speed
+    if (*speed <minSpeed) *speed =minSpeed;
+    if (*speed >maxSpeed) *speed =maxSpeed;
+
+    // Validate and adjust tension
+    if (*tension<minTension) *tension =minTension;
+    if (*tension>maxTension) *tension =maxTension;
+}
+
+int main(){
+    float speed, tension;
+
+    printf("Enter machine speed: ");
+    scanf("%f", &speed);
+    printf("Enter wrap tension: ");
+    scanf("%f", &tension);
+
+    updateSettings(&speed, &tension);
+
+    printf("Updated machine settings:\n");
+    printf("Speed: %.2f\n", speed);
+    printf("Wrap Tension: %.2f\n", tension);
+
+    return 0;
+}
+
+
+18. Process Temperature Control
+Requirements:
+Input: Current temperature (float).
+Output: Adjusted temperature.
+Function: Adjusts temperature using pointers.
+Constraints: Temperature must stay within a specified range.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void adjustTemp(float *temp);
+
+static void adjustTemp(float *temp){
+    const float minTemp = 50.0f, maxTemp = 200.0; 
+
+    if (*temp <minTemp) *temp =minTemp;
+    if (*temp >maxTemp) *temp =maxTemp;
+}
+
+int main(){
+    float temp;
+
+    printf("Enter current temperature: ");
+    scanf("%f", &temp);
+
+    adjustTemp(&temp);
+
+    printf("Adjusted temperature: %.2f\n", temp);
+
+    return 0;
+}
+
+
+19. Scrap Material Management
+Requirements:
+Input: Scrap count for different materials (array of integers).
+Output: Updated scrap count.
+Function: Modifies the scrap count via pointers.
+Constraints: Ensure scrap count remains non-negative.
+ 
+#include <stdio.h>
+
+// Function prototype
+static void manageScrap(int *scrap, int n);
+
+static void manageScrap(int *scrap, int n){
+    for (int i = 0; i < n; i++){
+        if (scrap[i] < 0){
+            scrap[i] = 0; 
+        }
+    }
+}
+
+int main(){
+    int n;
+
+    printf("Enter the number of material types: ");
+    scanf("%d", &n);
+
+    int scrap[n];
+
+    printf("Enter scrap count for each material: ");
+    for (int i=0; i<n; i++){
+        scanf("%d", &scrap[i]);
+    }
+    manageScrap(scrap, n);
+
+    printf("Updated scrap counts: ");
+    for (int i=0; i<n; i++){
+        printf("%d ", scrap[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+20. Shift Performance Analysis
+Requirements:
+Input: Production data for each shift (array of integers).
+Output: Updated performance metrics.
+Function: Calculates and updates overall performance using pointers.
+Constraints: Validate data inputs before calculations.
+
+#include <stdio.h>
+
+// Function prototype
+static void analyzePerformance(int *data, int n, int *total, float *average);
+
+static void analyzePerformance(int *data, int n, int *total, float *average){
+    *total = 0;
+
+    for (int i=0; i<n; i++) {
+        if (data[i] < 0) {
+            printf("Error: Invalid data entry detected at index %d. Setting to 0.\n", i);
+            data[i] = 0; // Replace invalid data with 0
+        }
+        *total += data[i];
+    }
+    *average = (float)(*total) / n;
+}
+
+int main() {
+    int n;
+
+    printf("Enter the number of shifts: ");
+    scanf("%d", &n);
+
+    int data[n], total;
+    float average;
+
+    printf("Enter production data for each shift: ");
+    for (int i =0; i<n; i++){
+        scanf("%d", &data[i]);
+    }
+    analyzePerformance(data, n, &total, &average);
+    printf("Total production: %d\n", total);
+    printf("Average production per shift: %.2f\n", average);
+
+    return 0;
+}
