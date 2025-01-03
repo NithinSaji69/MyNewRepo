@@ -1,0 +1,793 @@
+1. Flight Trajectory Calculation
+Pointers: Use to traverse the trajectory array.
+Arrays: Store trajectory points (x, y, z) at discrete time intervals.
+Functions:
+void calculate_trajectory(const double *parameters, double *trajectory, int size): Takes the initial velocity, angle, and an array to store trajectory points.
+void print_trajectory(const double *trajectory, int size): Prints the stored trajectory points.
+Pass Arrays as Pointers: Pass the trajectory array as a pointer to the calculation function.
+ 
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14
+
+void calculate_trajectory(const double *params, double *traj, int size);
+void print_trajectory(const double *traj, int size);
+
+int main(){
+    double params[2];
+    int size;
+
+    printf("Enter initial velocity (m/s): ");
+    scanf("%lf", &params[0]);
+    printf("Enter launch angle (degrees): ");
+    scanf("%lf", &params[1]);
+    printf("Enter number of trajectory points: ");
+    scanf("%d", &size);
+
+    double traj[size * 2];
+    for (int i = 0; i < size * 2; i++){
+        traj[i] = 0.0;  
+    }
+
+    calculate_trajectory(params, traj, size);
+    print_trajectory(traj, size);
+
+    return 0;
+}
+
+void calculate_trajectory(const double *params, double *traj, int size) {
+    double velocity = params[0];
+    double angle = params[1];
+    double rad_angle = angle * PI / 180.0;
+    double vx = velocity * cos(rad_angle);
+    double vy = velocity * sin(rad_angle);
+    double g = 9.81;
+
+    for (int i=0; i<size; i++){
+        double t=i * 0.1; 
+        double x=vx * t;
+        double y=vy * t - 0.5 * g * t * t;
+
+        if (y < 0){
+            y = 0; 
+        }
+
+        traj[i * 2] =x;
+        traj[i * 2 + 1]=y;
+    }
+}
+
+void print_trajectory(const double *traj, int size){
+    for (int i = 0; i < size; i++){
+        double x = traj[i * 2];
+        double y = traj[i * 2+1];
+
+        if (i > 0 && x ==0 && y ==0) break; 
+
+        printf("(%.2f, %.2f)\n", x, y);
+    }
+}
+
+
+2. Satellite Orbit Simulation
+Pointers: Manipulate position and velocity vectors.
+Arrays: Represent the satellite's position over time as an array of 3D vectors.
+Functions:
+void update_position(const double *velocity, double *position, int size): Updates the position based on velocity.
+void simulate_orbit(const double *initial_conditions, double *positions, int steps): Simulates orbit over a specified number of steps.
+Pass Arrays as Pointers: Use pointers for both velocity and position arrays.
+ 
+#include <stdio.h>
+
+#define GRAVITY 9.81
+
+void update_position(const float *velocity, float *position, int size);
+void simulate_orbit(const float *initial_conditions, float *positions, int steps);
+
+int main(){
+    float initial_conditions[6];
+    int steps;
+
+    printf("Enter initial position (x, y, z): ");
+    scanf("%f %f %f", &initial_conditions[0], &initial_conditions[1], &initial_conditions[2]);
+    printf("Enter initial velocity (vx, vy, vz): ");
+    scanf("%f %f %f", &initial_conditions[3], &initial_conditions[4], &initial_conditions[5]);
+    printf("Enter number of simulation steps: ");
+    scanf("%d", &steps);
+
+    float positions[steps * 3];
+
+    simulate_orbit(initial_conditions, positions, steps);
+
+    printf("Satellite Position over Time:\n");
+    for (int i = 0; i < steps; i++){
+        printf("Step %d: (%.2f, %.2f, %.2f)\n", i, positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]);
+    }
+
+    return 0;
+}
+
+void update_position(const float *velocity, float *position, int size){
+    for (int i = 0; i < 3; i++){
+        position[i] += velocity[i] * size;
+    }
+}
+
+void simulate_orbit(const float *initial_conditions, float *positions, int steps){
+    float position[3] = {initial_conditions[0], initial_conditions[1], initial_conditions[2]};
+    float velocity[3] = {initial_conditions[3], initial_conditions[4], initial_conditions[5]};
+
+    for (int step = 0; step < steps; step++){
+        positions[step * 3] = position[0];
+        positions[step * 3+1] = position[1];
+        positions[step * 3+2] = position[2];
+
+        update_position(velocity, position, step);
+
+        for (int i = 0; i < 3; i++){
+            velocity[i] -= GRAVITY * 0.01;
+        }
+    }
+}
+
+
+3. Weather Data Processing for Aviation
+Pointers: Traverse weather data arrays efficiently.
+Arrays: Store hourly temperature, wind speed, and pressure.
+Functions:
+void calculate_daily_averages(const double *data, int size, double *averages): Computes daily averages for each parameter.
+void display_weather_data(const double *data, int size): Displays data for monitoring purposes.
+Pass Arrays as Pointers: Pass weather data as pointers to processing functions.
+ 
+
+ #include <stdio.h>
+
+void calculate_daily_averages(const float *data, int size, float *averages);
+void display_weather_data(const float *data, int size);
+
+int main(){
+    int size = 24;
+    float weather_data[size * 3];
+    float averages[3];
+
+    printf("Enter hourly temperature, wind speed, and pressure for 24 hours:\n");
+    for (int i = 0; i < size; i++){
+        scanf("%f %f %f", &weather_data[i * 3], &weather_data[i * 3 + 1], &weather_data[i * 3 + 2]);
+    }
+
+    calculate_daily_averages(weather_data, size, averages);
+    display_weather_data(weather_data, size);
+
+    printf("\nDaily Averages - Temp: %.2f, Wind Speed: %.2f, Pressure: %.2f\n", averages[0], averages[1], averages[2]);
+
+    return 0;
+}
+
+void calculate_daily_averages(const float *data, int size, float *averages) {
+    float total_temp = 0, total_wind = 0, total_pressure = 0;
+
+    for (int i=0; i<size; i++){
+        total_temp +=data[i * 3];
+        total_wind +=data[i * 3 + 1];
+        total_pressure +=data[i * 3 + 2];
+    }
+
+    averages[0] = total_temp/size;
+    averages[1] = total_wind/size;
+    averages[2] = total_pressure/size;
+}
+
+void display_weather_data(const float *data, int size) {
+    for (int i = 0; i<size; i++){
+        printf("Hour %d - Temp: %.2f, Wind Speed: %.2f, Pressure: %.2f\n", i + 1, data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+    }
+}
+
+
+4. Flight Control System (PID Controller)
+Pointers: Traverse and manipulate error values in arrays.
+Arrays: Store historical error values for proportional, integral, and derivative calculations.
+Functions:
+double compute_pid(const double *errors, int size, const double *gains): Calculates control output using PID logic.
+void update_errors(double *errors, double new_error): Updates the error array with the latest value.
+Pass Arrays as Pointers: Use pointers for the errors array and the gains array.
+ 
+#include <stdio.h>
+
+double compute_pid(const double *errors, int size, const double *gains);
+void update_errors(double *errors, double new_error, int size);
+
+int main(){
+    int size = 10;
+    double errors[size];
+    double gains[3]; 
+    double new_error, control_output;
+
+    printf("Enter PID gains (P, I, D): ");
+    scanf("%lf %lf %lf", &gains[0], &gains[1], &gains[2]);
+
+    printf("Enter initial error values:\n");
+    for (int i = 0; i < size; i++){
+        printf("Error %d: ", i + 1);
+        scanf("%lf", &errors[i]);
+    }
+
+    printf("Enter new error value: ");
+    scanf("%lf", &new_error);
+
+    update_errors(errors, new_error, size);
+    control_output = compute_pid(errors, size, gains);
+
+    printf("Control Output: %.2f\n", control_output);
+
+    return 0;
+}
+
+double compute_pid(const double *errors, int size, const double *gains){
+    double p_term = errors[size - 1] * gains[0];
+    double i_term = 0, d_term = 0;
+
+    for (int i = 0; i < size; i++){
+        i_term += errors[i];
+    }
+    i_term *= gains[1];
+
+    if (size > 1) {
+        d_term = (errors[size - 1] - errors[size - 2]) * gains[2];
+    }
+
+    return p_term + i_term + d_term;
+}
+
+void update_errors(double *errors, double new_error, int size){
+    for (int i = 1; i < size; i++){
+        errors[i - 1] = errors[i];
+    }
+    errors[size - 1] = new_error;
+}
+
+
+5. Aircraft Sensor Data Fusion
+Pointers: Handle sensor readings and fusion results.
+Arrays: Store data from multiple sensors.
+Functions:
+void fuse_data(const double *sensor1, const double *sensor2, double *result, int size): Merges two sensor datasets into a single result array.
+void calibrate_data(double *data, int size): Adjusts sensor readings based on calibration data.
+Pass Arrays as Pointers: Pass sensor arrays as pointers to fusion and calibration functions.
+ 
+
+#include <stdio.h>
+
+void fuse_data(const double *sensor1, const double *sensor2, double *result, int size);
+void calibrate_data(double *data, int size);
+
+int main(){
+    int size = 5;
+    double sensor1[size], sensor2[size], fused_data[size];
+
+    printf("Enter sensor 1 data:\n");
+    for (int i = 0; i < size; i++){
+        printf("Sensor 1 - Data %d: ", i+1);
+        scanf("%lf", &sensor1[i]);
+    }
+
+    printf("Enter sensor 2 data:\n");
+    for (int i=0; i <size; i++){
+        printf("Sensor 2 - Data %d: ", i + 1);
+        scanf("%lf", &sensor2[i]);
+    }
+
+    fuse_data(sensor1, sensor2, fused_data, size);
+    calibrate_data(fused_data, size);
+
+    printf("Fused and calibrated sensor data:\n");
+    for (int i=0; i <size; i++) {
+        printf("Data %d: %.2f\n", i+1, fused_data[i]);
+    }
+
+    return 0;
+}
+
+void fuse_data(const double *sensor1, const double *sensor2, double *result, int size){
+    for (int i=0; i<size; i++){
+        result[i] = (sensor1[i] + sensor2[i])/2;
+    }
+}
+
+void calibrate_data(double *data, int size){
+    double calibration_offset= 0.5;
+    for (int i=0; i<size; i++){
+        data[i] += calibration_offset;
+    }
+}
+
+
+6. Air Traffic Management
+Pointers: Traverse the array of flight structures.
+Arrays: Store details of active flights (e.g., ID, altitude, coordinates).
+Functions:
+void add_flight(flight_t *flights, int *flight_count, const flight_t *new_flight): Adds a new flight to the system.
+void remove_flight(flight_t *flights, int *flight_count, int flight_id): Removes a flight by ID.
+Pass Arrays as Pointers: Use pointers to manipulate the array of flight structures.
+ 
+#include <stdio.h>
+
+void add_flight(int *flights, double *altitudes, double coordinates[][2], int *flight_count, int new_flight_id, double new_altitude, double new_coordinates[2]);
+void remove_flight(int *flights, double *altitudes, double coordinates[][2], int *flight_count, int flight_id);
+void display_flights(int *flights, double *altitudes, double coordinates[][2], int flight_count);
+
+int main(){
+    int flight_count = 0;
+    int flights[10];
+    double altitudes[10];
+    double coordinates[10][2]; 
+
+    add_flight(flights, altitudes, coordinates, &flight_count, 1, 35000, (double[]){37.7749, -122.4194});
+    add_flight(flights, altitudes, coordinates, &flight_count, 2, 40000, (double[]){34.0522, -118.2437});
+
+    printf("Active Flights:\n");
+    display_flights(flights, altitudes, coordinates, flight_count);
+
+    printf("\nRemoving flight with ID 1\n");
+    remove_flight(flights, altitudes, coordinates, &flight_count, 1);
+
+    printf("Active Flights after removal:\n");
+    display_flights(flights, altitudes, coordinates, flight_count);
+
+    return 0;
+}
+
+void add_flight(int *flights, double *altitudes, double coordinates[][2], int *flight_count, int new_flight_id, double new_altitude, double new_coordinates[2]) {
+    flights[*flight_count] = new_flight_id;
+    altitudes[*flight_count] = new_altitude;
+    coordinates[*flight_count][0] = new_coordinates[0];
+    coordinates[*flight_count][1] = new_coordinates[1];
+    (*flight_count)++;
+}
+
+void remove_flight(int *flights, double *altitudes, double coordinates[][2], int *flight_count, int flight_id){
+    for (int i = 0; i < *flight_count; i++){
+        if (flights[i] == flight_id) {
+            for (int j=i; j < *flight_count - 1; j++){
+                flights[j] = flights[j + 1];
+                altitudes[j] = altitudes[j+ 1];
+                coordinates[j][0] = coordinates[j + 1][0];
+                coordinates[j][1] = coordinates[j + 1][1];
+            }
+            (*flight_count)--;
+            break;
+        }
+    }
+}
+
+void display_flights(int *flights, double *altitudes, double coordinates[][2], int flight_count){
+    for (int i=0; i <flight_count; i++) {
+        printf("Flight ID: %d, Altitude: %.2f ft, Coordinates: (%.4f, %.4f)\n", 
+            flights[i], altitudes[i], coordinates[i][0], coordinates[i][1]);
+    }
+}
+
+
+
+7. Satellite Telemetry Analysis
+Pointers: Traverse telemetry data arrays.
+Arrays: Store telemetry parameters (e.g., power, temperature, voltage).
+Functions:
+void analyze_telemetry(const double *data, int size): Computes statistical metrics for telemetry data.
+void filter_outliers(double *data, int size): Removes outliers from the telemetry data array.
+Pass Arrays as Pointers: Pass telemetry data arrays to both functions.
+ 
+
+#include <stdio.h>
+
+void analyze_telemetry(const double *data, int size);
+void filter_outliers(double *data, int size);
+
+int main(){
+    int size = 5;
+    double telemetry_data[5] = {23.4, 25.8, 22.1, 100.0, 24.5};
+
+    printf("Analyzing telemetry data:\n");
+    analyze_telemetry(telemetry_data, size);
+
+    printf("\nFiltering outliers...\n");
+    filter_outliers(telemetry_data, size);
+
+    printf("Filtered telemetry data:\n");
+    analyze_telemetry(telemetry_data, size);
+
+    return 0;
+}
+
+void analyze_telemetry(const double *data, int size){
+    double sum = 0.0;
+    double max = data[0];
+    double min = data[0];
+    
+    for (int i = 0; i < size; i++){
+        sum += data[i];
+        if (data[i]>max) max = data[i];
+        if (data[i]<min) min = data[i];
+    }
+    
+    double average = sum / size;
+    printf("Average: %.2f, Max: %.2f, Min: %.2f\n", average, max, min);
+}
+
+void filter_outliers(double *data, int size){
+    double threshold = 50.0;
+    
+    for (int i=0; i<size; i++){
+        if (data[i] >threshold){
+            data[i] = 0.0; 
+        }
+    }
+}
+
+
+8. Rocket Thrust Calculation
+Pointers: Traverse thrust arrays.
+Arrays: Store thrust values for each stage of the rocket.
+Functions:
+double compute_total_thrust(const double *stages, int size): Calculates cumulative thrust across all stages.
+void update_stage_thrust(double *stages, int stage, double new_thrust): Updates thrust for a specific stage.
+Pass Arrays as Pointers: Use pointers for thrust arrays.
+ 
+#include <stdio.h>
+
+double compute_total_thrust(const double *stages, int size);
+void update_stage_thrust(double *stages, int stage, double new_thrust);
+
+int main(){
+    int size = 3;
+    double thrust_stages[3] = {1200.5, 850.3, 450.8}; // Example thrust values for each stage
+
+    printf("Initial thrust values for each stage:\n");
+    for (int i = 0; i < size; i++){
+        printf("Stage %d: %.2f N\n", i + 1, thrust_stages[i]);
+    }
+
+   
+    double total_thrust = compute_total_thrust(thrust_stages, size);
+    printf("\nTotal thrust: %.2f N\n", total_thrust);
+
+   
+    update_stage_thrust(thrust_stages, 1, 900.0); 
+
+    printf("\nUpdated thrust values for each stage:\n");
+    for (int i=0; i<size; i++){
+        printf("Stage %d: %.2f N\n", i+1, thrust_stages[i]);
+    }
+
+    total_thrust = compute_total_thrust(thrust_stages, size);
+    printf("\nUpdated total thrust: %.2f N\n", total_thrust);
+
+    return 0;
+}
+
+double compute_total_thrust(const double *stages, int size) {
+    double total = 0.0;
+    for (int i=0; i<size;i++){
+        total += stages[i];
+    }
+    return total;
+}
+
+void update_stage_thrust(double *stages, int stage, double new_thrust){
+    stages[stage] = new_thrust;
+}
+
+
+
+9. Wing Stress Analysis
+Pointers: Access stress values at various points.
+Arrays: Store stress values for discrete wing sections.
+Functions:
+void compute_stress_distribution(const double *forces, double *stress, int size): Computes stress values based on applied forces.
+void display_stress(const double *stress, int size): Displays the stress distribution.
+Pass Arrays as Pointers: Pass stress arrays to computation functions.
+ 
+#include <stdio.h>
+
+void compute_stress_distribution(const double *forces, double *stress, int size);
+void display_stress(const double *stress, int size);
+
+int main(){
+    int size = 5; 
+    double forces[5] = {500.0, 400.0, 300.0, 200.0, 100.0}; // Applied forces on each section
+
+    double stress[5]; 
+
+    compute_stress_distribution(forces, stress, size);
+    
+    printf("Stress distribution for each wing section:\n");
+    display_stress(stress, size);
+
+    return 0;
+}
+
+void compute_stress_distribution(const double *forces, double *stress, int size) {
+    double modulus_of_elasticity = 210000; 
+
+    for (int i=0; i<size; i++){
+        stress[i] = forces[i]/modulus_of_elasticity;
+    }
+}
+
+void display_stress(const double *stress, int size){
+    for (int i = 0; i < size; i++){
+        printf("Section %d: %.2f MPa\n", i + 1, stress[i]);
+    }
+}
+
+
+10. Drone Path Optimization
+Pointers: Traverse waypoint arrays.
+Arrays: Store coordinates of waypoints.
+Functions:
+double optimize_path(const double *waypoints, int size): Reduces the total path length.
+void add_waypoint(double *waypoints, int *size, double x, double y): Adds a new waypoint.
+Pass Arrays as Pointers: Use pointers to access and modify waypoints.
+ 
+#include <stdio.h>
+#include <math.h>
+
+double optimize_path(const double *waypoints, int size);
+void add_waypoint(double *waypoints, int *size, double x, double y);
+
+int main(){
+    int size = 4;
+    double waypoints[8] = {0.0, 0.0, 5.0, 5.0, 10.0, 10.0, 15.0, 15.0}; 
+
+    double total_distance = optimize_path(waypoints, size);
+    printf("Total path distance: %.2f units\n", total_distance);
+
+    add_waypoint(waypoints, &size, 20.0, 20.0);
+    
+    total_distance = optimize_path(waypoints, size);
+    printf("Updated total path distance: %.2f units\n", total_distance);
+
+    return 0;
+}
+
+double optimize_path(const double *waypoints, int size){
+    double total_distance = 0.0;
+
+    for (int i=0; i<size-1; i++){
+        double dx = waypoints[(i+1) * 2] - waypoints[i * 2];
+        double dy = waypoints[(i+1) * 2+1] - waypoints[i * 2 + 1];
+        total_distance += sqrt(dx * dx + dy * dy);
+    }
+
+    return total_distance;
+}
+
+void add_waypoint(double *waypoints, int *size, double x, double y){
+    waypoints[*size * 2] =x;
+    waypoints[*size * 2+1]=y;
+    (*size)++;
+}
+
+
+11. Satellite Attitude Control
+Pointers: Manipulate quaternion arrays.
+Arrays: Store quaternion values for attitude control.
+Functions:
+void update_attitude(const double *quaternion, double *new_attitude): Updates the satellite's attitude.
+void normalize_quaternion(double *quaternion): Ensures quaternion normalization.
+Pass Arrays as Pointers: Pass quaternion arrays as pointers.
+ 
+#include <stdio.h>
+#include <math.h>
+
+void update_attitude(const double *quaternion, double *new_attitude);
+void normalize_quaternion(double *quaternion);
+
+int main(){
+    double quaternion[4] = {1.0, 0.0, 0.0, 0.0}; 
+    double new_attitude[4];
+
+    update_attitude(quaternion, new_attitude);
+    printf("Updated Attitude: (%.2f, %.2f, %.2f, %.2f)\n", new_attitude[0], new_attitude[1], new_attitude[2], new_attitude[3]);
+
+    normalize_quaternion(new_attitude);
+    printf("Normalized Attitude: (%.2f, %.2f, %.2f, %.2f)\n", new_attitude[0], new_attitude[1], new_attitude[2], new_attitude[3]);
+
+    return 0;
+}
+
+void update_attitude(const double *quaternion, double *new_attitude){
+    for (int i=0; i<4; i++){
+        new_attitude[i] = quaternion[i] + 0.1;
+    }
+}
+
+void normalize_quaternion(double *quaternion){
+    double norm = 0.0;
+
+    for (int i=0; i<4; i++){
+        norm += quaternion[i] * quaternion[i];
+    }
+    norm = sqrt(norm);
+    for (int i=0; i<4; i++){
+        quaternion[i] /= norm;
+    }
+}
+
+
+12. Aerospace Material Thermal Analysis
+Pointers: Access temperature arrays for computation.
+Arrays: Store temperature values at discrete points.
+Functions:
+void simulate_heat_transfer(const double *material_properties, double *temperatures, int size): Simulates heat transfer across the material.
+void display_temperatures(const double *temperatures, int size): Outputs temperature distribution.
+Pass Arrays as Pointers: Use pointers for temperature arrays.
+ 
+#include <stdio.h>
+
+void simulate_heat_transfer(const double *material_properties, double *temperatures, int size);
+void display_temperatures(const double *temperatures, int size);
+
+int main(){
+    int size = 5;
+    double material_properties[2] = {100.0, 0.5}; 
+    double temperatures[5] = {20.0, 22.0, 24.0, 26.0, 28.0}; 
+
+    simulate_heat_transfer(material_properties, temperatures, size);
+    display_temperatures(temperatures, size);
+
+    return 0;
+}
+
+void simulate_heat_transfer(const double *material_properties, double *temperatures, int size){
+    double conductivity = material_properties[0];
+    double thickness = material_properties[1];
+
+    for (int i=1; i<size; i++){
+
+        temperatures[i] = temperatures[i-1] + conductivity * thickness;
+    }
+}
+
+void display_temperatures(const double *temperatures, int size){
+    for (int i=0; i<size; i++){
+        printf("Temperature at point %d: %.2f°C\n", i, temperatures[i]);
+    }
+}
+
+
+13. Aircraft Fuel Efficiency
+Pointers: Traverse fuel consumption arrays.
+Arrays: Store fuel consumption at different time intervals.
+Functions:
+double compute_efficiency(const double *fuel_data, int size): Calculates overall fuel efficiency.
+void update_fuel_data(double *fuel_data, int interval, double consumption): Updates fuel data for a specific interval.
+Pass Arrays as Pointers: Pass fuel data arrays as pointers.
+ 
+#include <stdio.h>
+
+double compute_efficiency(const double *fuel_data, int size);
+void update_fuel_data(double *fuel_data, int interval, double consumption);
+
+int main(){
+    int size = 5;
+    double fuel_data[5] = {100.0, 95.0, 90.0, 85.0, 80.0};
+
+    double efficiency = compute_efficiency(fuel_data, size);
+    printf("Initial fuel efficiency: %.2f\n", efficiency);
+
+    update_fuel_data(fuel_data, 2, 75.0); 
+    efficiency = compute_efficiency(fuel_data, size);
+    printf("Updated fuel efficiency: %.2f\n", efficiency);
+
+    return 0;
+}
+
+double compute_efficiency(const double *fuel_data, int size) {
+    double total_fuel_used = 0;
+    double initial_fuel = fuel_data[0];
+
+    for (int i=1; i<size; i++){
+        total_fuel_used+= (fuel_data[i-1]- fuel_data[i]);
+    }
+
+    double efficiency = (total_fuel_used/initial_fuel) * 100;
+    return efficiency;
+}
+
+void update_fuel_data(double *fuel_data, int interval, double consumption){
+    fuel_data[interval] = consumption;
+}
+
+
+14. Satellite Communication Link Budget
+Pointers: Handle parameter arrays for computation.
+Arrays: Store communication parameters like power and losses.
+Functions:
+double compute_link_budget(const double *parameters, int size): Calculates the total link budget.
+void update_parameters(double *parameters, int index, double value): Updates a specific parameter.
+Pass Arrays as Pointers: Pass parameter arrays as pointers.
+ 
+
+#include <stdio.h>
+
+double compute_link_budget(const double *parameters, int size);
+void update_parameters(double *parameters, int index, double value);
+
+int main(){
+    int size = 5;
+    double parameters[5] = {50.0, 2.0, 1.5, 3.0, 0.8};
+
+    double link_budget = compute_link_budget(parameters, size);
+    printf("Initial link budget: %.2f dB\n", link_budget);
+
+    update_parameters(parameters, 1, 2.5);
+    link_budget = compute_link_budget(parameters, size);
+    printf("Updated link budget: %.2f dB\n", link_budget);
+
+    return 0;
+}
+
+double compute_link_budget(const double *parameters, int size){
+    double power = parameters[0];
+    double gain = parameters[1];
+    double loss = parameters[2];
+    double path_loss = parameters[3];
+    double margin = parameters[4];
+
+    double link_budget = power + gain - loss - path_loss + margin;
+    return link_budget;
+}
+
+void update_parameters(double *parameters, int index, double value){
+    parameters[index] = value;
+}
+
+
+15. Turbulence Detection in Aircraft
+Pointers: Traverse acceleration arrays.
+Arrays: Store acceleration data from sensors.
+Functions:
+void detect_turbulence(const double *accelerations, int size, double *output): Detects turbulence based on frequency analysis.
+void log_turbulence(double *turbulence_log, const double *detection_output, int size): Logs detected turbulence events.
+Pass Arrays as Pointers: Pass acceleration and log arrays to functions.
+
+#include <stdio.h>
+
+void detect_turbulence(const float *accelerations, int size, float *output);
+void log_turbulence(float *turbulence_log, const float *detection_output, int size);
+
+int main() {
+    int size = 5;
+    float accelerations[5] = {0.2, 0.5, 1.8, 0.4, 2.5};
+    float detection_output[5];
+    float turbulence_log[5] = {0};
+
+    detect_turbulence(accelerations, size, detection_output);
+    log_turbulence(turbulence_log, detection_output, size);
+
+    printf("Turbulence Log:\n");
+    for (int i=0; i<size; i++) {
+        printf("Log[%d]: %.2f\n", i, turbulence_log[i]);
+    }
+
+    return 0;
+}
+
+void detect_turbulence(const float *accelerations, int size, float *output) {
+    for (int i=0; i<size; i++){
+        if (accelerations[i] > 1.0){ 
+            output[i] = 1;
+        }
+         else{
+            output[i] = 0;
+        }
+    }
+}
+
+void log_turbulence(float *turbulence_log, const float *detection_output, int size) {
+    for (int i=0; i<size;i++){
+        turbulence_log[i] = detection_output[i];
+    }
+}
