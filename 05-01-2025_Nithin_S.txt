@@ -1,0 +1,895 @@
+Inventory Update System
+Input: An array of integers representing inventory levels and an array of changes in stock.
+Process: Pass the arrays to a function by reference to update inventory levels.
+Output: Print the updated inventory levels and flag items below the restocking threshold.
+Concepts: Arrays, functions, pass by reference, decision-making (if-else).
+
+#include <stdio.h>
+
+void update_inventory(int *inventory, const int *changes, int size, int threshold);
+
+int main() {
+    int size = 5;
+    int inventory[5] = {50, 30, 20, 15, 60};
+    int changes[5] = {-10, 5, -15, -20, 10};
+    int threshold = 20;
+
+    update_inventory(inventory, changes, size, threshold);
+
+    printf("Updated Inventory Levels:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Item %d: %d\n", i + 1, inventory[i]);
+    }
+
+    return 0;
+}
+
+void update_inventory(int *inventory, const int *changes, int size, int threshold) {
+    for (int i = 0; i < size; i++) {
+        inventory[i] += changes[i];
+        if (inventory[i] < threshold) {
+            printf("Item %d needs restocking (Current Level: %d).\n", i + 1, inventory[i]);
+        }
+    }
+}
+
+
+Product Price Adjustment
+Input: An array of demand levels (constant) and an array of product prices.
+Process: Use a function to calculate new prices based on demand levels. The function should return a pointer to an array of adjusted prices.
+Output: Display the original and adjusted prices.
+Concepts: Passing constant data, functions, pointers, arrays.
+
+#include <stdio.h>
+
+void adjust_prices(const int *demand_levels, const float *prices, float *adjusted_prices, int size);
+
+int main() {
+    int size = 5;
+    int demand_levels[5] = {3, 1, 4, 2, 5};
+    float prices[5] = {10.0, 20.0, 15.0, 25.0, 30.0};
+    float adjusted_prices[5];
+
+    adjust_prices(demand_levels, prices, adjusted_prices, size);
+
+    printf("Original and Adjusted Prices:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Product %d: Original Price = %.2f, Adjusted Price = %.2f\n", 
+               i + 1, prices[i], adjusted_prices[i]);
+    }
+
+    return 0;
+}
+
+void adjust_prices(const int *demand_levels, const float *prices, float *adjusted_prices, int size) {
+    for (int i = 0; i < size; i++) {
+        adjusted_prices[i] = prices[i] * (1 + 0.1 * demand_levels[i]);
+    }
+}
+
+Daily Sales Tracker
+Input: Array of daily sales amounts.
+Process: Use do-while to validate sales data input. Use a function to calculate total sales using pointers.
+Output: Display total sales for the day.
+Concepts: Loops, arrays, pointers, functions.
+
+#include <stdio.h>
+
+void calculate_total_sales(const float *sales, int size, float *total);
+
+int main() {
+    int size;
+    printf("Enter the number of sales records: ");
+    scanf("%d", &size);
+
+    float sales[size];
+    int i = 0;
+
+    printf("Enter the sales amounts:\n");
+    do {
+        printf("Sales [%d]: ", i + 1);
+        scanf("%f", &sales[i]);
+        if (sales[i] < 0) {
+            printf("Sales amount cannot be negative. Please re-enter.\n");
+        } else {
+            i++;
+        }
+    } while (i < size);
+
+    float total_sales = 0;
+    calculate_total_sales(sales, size, &total_sales);
+
+    printf("Total Sales for the Day: %.2f\n", total_sales);
+
+    return 0;
+}
+
+void calculate_total_sales(const float *sales, int size, float *total) {
+    for (int i = 0; i < size; i++) {
+        *total += sales[i];
+    }
+}
+
+
+Discount Decision System
+Input: Array of sales volumes.
+Process: Pass the sales volume array by reference to a function. Use a switch statement to assign discount rates.
+Output: Print discount rates for each product.
+Concepts: Decision-making (switch), arrays, pass by reference, functions.
+
+#include <stdio.h>
+
+void assign_discounts(const int *sales, int *discounts, int size) {
+    for (int i = 0; i < size; i++) {
+        switch (sales[i] / 100) {
+            case 0:
+            case 1:
+                discounts[i] = 5;
+                break;
+            case 2:
+            case 3:
+                discounts[i] = 10;
+                break;
+            default:
+                discounts[i] = 15;
+                break;
+        }
+    }
+}
+
+int main() {
+    int sales[5], discounts[5];
+    printf("Enter sales volumes for 5 products:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Product %d: ", i + 1);
+        scanf("%d", &sales[i]);
+    }
+    assign_discounts(sales, discounts, 5);
+    printf("\nDiscount rates for each product:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Product %d: %d%%\n", i + 1, discounts[i]);
+    }
+    return 0;
+}
+
+
+Transaction Anomaly Detector
+Input: Array of transaction amounts.
+Process: Use pointers to traverse the array. Classify transactions as "Normal" or "Suspicious" based on thresholds using if-else.
+Output: Print classification for each transaction.
+Concepts: Arrays, pointers, loops, decision-making.
+
+#include <stdio.h>
+
+void classify_transactions(const int *transactions, int size, char *classifications) {
+    for (int i = 0; i < size; i++) {
+        if (transactions[i] > 10000)
+            classifications[i] = 'S';
+        else
+            classifications[i] = 'N';
+    }
+}
+
+int main() {
+    int transactions[5];
+    char classifications[5];
+    int i;
+    printf("Enter 5 transaction amounts:\n");
+    for (i = 0; i < 5; i++) {
+        printf("Transaction %d: ", i + 1);
+        scanf("%d", &transactions[i]);
+    }
+    classify_transactions(transactions, 5, classifications);
+    printf("\nTransaction classifications:\n");
+    for (i = 0; i < 5; i++) {
+        if (classifications[i] == 'S')
+            printf("Transaction %d: Suspicious\n", i + 1);
+        else
+            printf("Transaction %d: Normal\n", i + 1);
+    }
+    return 0;
+}
+
+
+Account Balance Operations
+Input: Array of account balances.
+Process: Pass the balances array to a function that calculates interest. Return a pointer to the updated balances array.
+Output: Display updated balances.
+Concepts: Functions, arrays, pointers, loops.
+
+
+#include <stdio.h>
+
+void calculate_interest(int *balances, int size, float interest_rate) {
+    for (int i = 0; i < size; i++) {
+        balances[i] += balances[i] * interest_rate;
+    }
+}
+
+int main() {
+    int balances[5], i;
+    float interest_rate;
+
+    printf("Enter interest rate as a decimal (e.g., 0.05 for 5%%): ");
+    scanf("%f", &interest_rate);
+
+    printf("Enter 5 account balances:\n");
+    for (i = 0; i < 5; i++) {
+        printf("Balance %d: ", i + 1);
+        scanf("%d", &balances[i]);
+    }
+
+    calculate_interest(balances, 5, interest_rate);
+
+    printf("\nUpdated balances:\n");
+    for (i = 0; i < 5; i++) {
+        printf("Account %d: %d\n", i + 1, balances[i]);
+    }
+
+    return 0;
+}
+
+
+Bank Statement Generator
+Input: Array of transaction types (e.g., 1 for Deposit, 2 for Withdrawal) and amounts.
+Process: Use a switch statement to classify transactions. Pass the array as a constant parameter to a function.
+Output: Summarize total deposits and withdrawals.
+Concepts: Decision-making, passing constant data, arrays, functions.
+
+#include <stdio.h>
+
+void generate_statement(const int *types, const int *amounts, int size) {
+    int total_deposit = 0, total_withdrawal = 0;
+
+    for (int i = 0; i < size; i++) {
+        switch (types[i]) {
+            case 1:
+                total_deposit += amounts[i];
+                break;
+            case 2:
+                total_withdrawal += amounts[i];
+                break;
+            default:
+                break;
+        }
+    }
+
+    printf("Total Deposits: %d\n", total_deposit);
+    printf("Total Withdrawals: %d\n", total_withdrawal);
+}
+
+int main() {
+    int types[5], amounts[5];
+
+    printf("Enter transaction types (1 for Deposit, 2 for Withdrawal) and amounts:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Transaction %d type: ", i + 1);
+        scanf("%d", &types[i]);
+        printf("Transaction %d amount: ", i + 1);
+        scanf("%d", &amounts[i]);
+    }
+
+    generate_statement(types, amounts, 5);
+
+    return 0;
+}
+
+
+Loan Eligibility Check
+Input: Array of customer credit scores.
+Process: Use if-else to check eligibility criteria. Use pointers to update eligibility status.
+Output: Print customer eligibility statuses.
+Concepts: Decision-making, arrays, pointers, functions.
+
+
+#include <stdio.h>
+
+void check_eligibility(const int *scores, char *status, int size) {
+    for (int i = 0; i < size; i++) {
+        if (scores[i] >= 700) {
+            status[i] = 'E';
+        } else {
+            status[i] = 'N';
+        }
+    }
+}
+
+int main() {
+    int scores[5];
+    char status[5];
+
+    printf("Enter customer credit scores:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Customer %d score: ", i + 1);
+        scanf("%d", &scores[i]);
+    }
+
+    check_eligibility(scores, status, 5);
+
+    printf("\nEligibility Status:\n");
+    for (int i = 0; i < 5; i++) {
+        if (status[i] == 'E') {
+            printf("Customer %d: Eligible\n", i + 1);
+        } else {
+            printf("Customer %d: Not Eligible\n", i + 1);
+        }
+    }
+
+    return 0;
+}
+
+
+
+Order Total Calculator
+Input: Array of item prices.
+Process: Pass the array to a function. Use pointers to calculate the total cost.
+Output: Display the total order value.
+Concepts: Arrays, pointers, functions, loops.
+
+#include <stdio.h>
+
+double calculate_total(const double *prices, int size) {
+    double total = 0;
+    for (int i = 0; i < size; i++) {
+        total += prices[i];
+    }
+    return total;
+}
+
+int main() {
+    double prices[5];
+    
+    printf("Enter the prices of 5 items:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Item %d price: ", i + 1);
+        scanf("%lf", &prices[i]);
+    }
+
+    double total = calculate_total(prices, 5);
+    printf("\nTotal order value: %.2lf\n", total);
+
+    return 0;
+}
+
+
+Stock Replenishment Alert
+Input: Array of inventory levels.
+Process: Use a function to flag products below a threshold. Return a pointer to flagged indices.
+Output: Display flagged product indices.
+Concepts: Arrays, functions returning pointers, loops.
+
+#include <stdio.h>
+
+int* flag_below_threshold(int *inventory, int size, int threshold, int *flagged_count) {
+    static int flagged_indices[10];
+    *flagged_count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (inventory[i] < threshold) {
+            flagged_indices[*flagged_count] = i;
+            (*flagged_count)++;
+        }
+    }
+    return flagged_indices;
+}
+
+int main() {
+    int inventory[5] = {10, 5, 3, 8, 2};
+    int threshold = 6;
+    int flagged_count;
+
+    int *flagged_indices = flag_below_threshold(inventory, 5, threshold, &flagged_count);
+
+    if (flagged_count > 0) {
+        printf("Flagged product indices:\n");
+        for (int i = 0; i < flagged_count; i++) {
+            printf("Product at index %d\n", flagged_indices[i]);
+        }
+    } else {
+        printf("No products are below the threshold.\n");
+    }
+
+    return 0;
+}
+
+
+Customer Reward Points
+Input: Array of customer purchase amounts.
+Process: Pass the purchase array by reference to a function that calculates reward points using if-else.
+Output: Display reward points for each customer.
+Concepts: Arrays, functions, pass by reference, decision-making.
+
+
+#include <stdio.h>
+
+void calculate_reward_points(int *purchases, int size) {
+    for (int i = 0; i < size; i++) {
+        if (purchases[i] > 100) {
+            purchases[i] = purchases[i] * 0.1; 
+        } else {
+            purchases[i] = 0;
+        }
+    }
+}
+
+int main() {
+    int purchases[5] = {120, 90, 150, 60, 200};
+
+    calculate_reward_points(purchases, 5);
+
+    printf("Customer Reward Points:\n");
+    for (int i = 0; i < 5; i++) {
+        printf("Customer %d: %d points\n", i + 1, purchases[i]);
+    }
+
+    return 0;
+}
+
+
+Shipping Cost Estimator
+Input: Array of order weights and shipping zones.
+Process: Use a switch statement to calculate shipping costs based on zones. Pass the weight array as a constant parameter.
+Output: Print the shipping cost for each order.
+Concepts: Decision-making, passing constant data, arrays, functions.
+
+
+
+#include <stdio.h>
+
+void calculate_shipping_cost(const int *weights, const int *zones, int size) {
+    for (int i = 0; i < size; i++) {
+        int cost = 0;
+        switch (zones[i]) {
+            case 1: 
+                cost = weights[i] * 2;
+                break;
+            case 2: 
+                cost = weights[i] * 3;
+                break;
+            case 3: 
+                cost = weights[i] * 5;
+                break;
+            default: 
+                cost = weights[i] * 7;
+                break;
+        }
+        printf("Order %d: Shipping Cost = %d\n", i + 1, cost);
+    }
+}
+
+int main() {
+    int weights[5] = {10, 15, 20, 25, 30};
+    int zones[5] = {1, 2, 3, 1, 2};
+
+    calculate_shipping_cost(weights, zones, 5);
+
+    return 0;
+}
+
+
+Missile Trajectory Analysis
+Input: Array of trajectory data points.
+Process: Use functions to find maximum and minimum altitudes. Use pointers to access data.
+Output: Display maximum and minimum altitudes.
+Concepts: Arrays, pointers, functions.
+
+#include <stdio.h>
+
+void find_max_min_altitudes(const int *data, int size, int *max, int *min) {
+    *max = data[0];
+    *min = data[0];
+    for (int i = 1; i < size; i++) {
+        if (data[i] > *max) {
+            *max = data[i];
+        }
+        if (data[i] < *min) {
+            *min = data[i];
+        }
+    }
+}
+
+int main() {
+    int trajectory_data[5] = {300, 450, 500, 350, 600};
+    int max, min;
+
+    find_max_min_altitudes(trajectory_data, 5, &max, &min);
+
+    printf("Maximum Altitude: %d\n", max);
+    printf("Minimum Altitude: %d\n", min);
+
+    return 0;
+}
+
+
+Target Identification System
+Input: Array of radar signal intensities.
+Process: Classify signals into categories using a switch statement. Return a pointer to the array of classifications.
+Output: Display classified signal types.
+Concepts: Decision-making, functions returning pointers, arrays.
+
+#include <stdio.h>
+
+#define N 5
+
+void classify(const int *s, int *c, int size) {
+    for (int i = 0; i < size; i++) {
+        switch (s[i]) {
+            case 1: c[i] = 1; break;
+            case 2: c[i] = 2; break;
+            case 3: c[i] = 3; break;
+            default: c[i] = 0;
+        }
+    }
+}
+
+int main() {
+    int s[N] = {1, 2, 3, 1, 0};
+    int c[N];
+
+    classify(s, c, N);
+
+    for (int i = 0; i < N; i++) {
+        printf("Signal %d: Type %d\n", i+1, c[i]);
+    }
+
+    return 0;
+}
+
+
+Threat Level Assessment
+Input: Array of sensor readings.
+Process: Pass the array by reference to a function that uses if-else to categorize threats.
+Output: Display categorized threat levels.
+Concepts: Arrays, functions, pass by reference, decision-making.
+
+
+#include <stdio.h>
+
+#define N 5
+
+void categorize(int *s, int size) {
+    for (int i = 0; i < size; i++) {
+        if (s[i] < 10) {
+            s[i] = 1;
+        } else if (s[i] < 20) {
+            s[i] = 2;
+        } else {
+            s[i] = 3;
+        }
+    }
+}
+
+int main() {
+    int s[N] = {8, 15, 22, 5, 18};
+
+    categorize(s, N);
+
+    for (int i = 0; i < N; i++) {
+        printf("Sensor %d: Threat Level %d\n", i+1, s[i]);
+    }
+
+    return 0;
+}
+
+
+Signal Calibration
+Input: Array of raw signal data.
+Process: Use a function to adjust signal values by reference. Use pointers for data traversal.
+Output: Print calibrated signal values.
+Concepts: Arrays, pointers, functions, loops.
+
+#include <stdio.h>
+
+#define N 5
+
+void calibrate(int *data, int size) {
+    for (int i = 0; i < size; i++) {
+        data[i] = data[i] * 2;
+    }
+}
+
+int main() {
+    int signal[N] = {5, 10, 15, 20, 25};
+
+    calibrate(signal, N);
+
+    for (int i = 0; i < N; i++) {
+        printf("Calibrated Signal %d: %d\n", i+1, signal[i]);
+    }
+
+    return 0;
+}
+
+
+Matrix Row Sum
+Input: 2D array representing a matrix.
+Process: Write a function that calculates the sum of each row. The function returns a pointer to an array of row sums.
+Output: Display the row sums.
+Concepts: Arrays, functions returning pointers, loops.
+
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 3
+
+int* row_sum(int matrix[ROWS][COLS], int *sums) {
+    for (int i = 0; i < ROWS; i++) {
+        sums[i] = 0;
+        for (int j = 0; j < COLS; j++) {
+            sums[i] += matrix[i][j];
+        }
+    }
+    return sums;
+}
+
+int main() {
+    int matrix[ROWS][COLS] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    int sums[ROWS];
+
+    row_sum(matrix, sums);
+
+    for (int i = 0; i < ROWS; i++) {
+        printf("Row %d sum: %d\n", i+1, sums[i]);
+    }
+
+    return 0;
+}
+
+
+Statistical Mean Calculator
+Input: Array of data points.
+Process: Pass the data array as a constant parameter. Use pointers to calculate the mean.
+Output: Print the mean value.
+Concepts: Passing constant data, pointers, functions.
+
+
+#include <stdio.h>
+
+#define SIZE 5
+
+double calculate_mean(const int *data, int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += data[i];
+    }
+    return (double)sum / size;
+}
+
+int main() {
+    int data[SIZE] = {10, 20, 30, 40, 50};
+    double mean = calculate_mean(data, SIZE);
+    printf("Mean: %.2f\n", mean);
+    return 0;
+}
+
+
+Temperature Gradient Analysis
+Input: Array of temperature readings.
+Process: Compute the gradient using a function that returns a pointer to the array of gradients.
+Output: Display temperature gradients.
+Concepts: Arrays, functions returning pointers, loops.
+
+
+#include <stdio.h>
+
+#define SIZE 5
+
+double* calculate_gradient(const int *temps, int size) {
+    static double gradients[SIZE - 1];
+    for (int i = 0; i < size - 1; i++) {
+        gradients[i] = (double)(temps[i + 1] - temps[i]);
+    }
+    return gradients;
+}
+
+int main() {
+    int temps[SIZE] = {10, 20, 30, 40, 50};
+    double *gradients = calculate_gradient(temps, SIZE);
+    
+    for (int i = 0; i < SIZE - 1; i++) {
+        printf("Gradient between %d and %d: %.2f\n", temps[i], temps[i + 1], gradients[i]);
+    }
+    return 0;
+}
+
+
+Data Normalization
+Input: Array of data points.
+Process: Pass the array by reference to a function that normalizes values to a range of 0–1 using pointers.
+Output: Display normalized values.
+Concepts: Arrays, pointers, pass by reference, functions.
+ 
+
+#include <stdio.h>
+
+#define SIZE 5
+
+void normalize_data(float *data, int size) {
+    float min = data[0], max = data[0];
+    
+    for (int i = 1; i < size; i++) {
+        if (data[i] < min) min = data[i];
+        if (data[i] > max) max = data[i];
+    }
+    
+    for (int i = 0; i < size; i++) {
+        data[i] = (data[i] - min) / (max - min);
+    }
+}
+
+int main() {
+    float data[SIZE] = {12.5, 15.7, 10.3, 19.8, 22.1};
+    
+    normalize_data(data, SIZE);
+    
+    for (int i = 0; i < SIZE; i++) {
+        printf("Normalized value: %.2f\n", data[i]);
+    }
+    
+    return 0;
+}
+
+
+Exam Score Analysis
+Input: Array of student scores.
+Process: Write a function that returns a pointer to the highest score. Use loops to calculate the average score.
+Output: Display the highest and average scores.
+Concepts: Arrays, functions returning pointers, loops.
+
+#include <stdio.h>
+
+#define SIZE 5
+
+float* find_highest_score(float *scores, int size) {
+    float *max_score = scores;
+    for (int i = 1; i < size; i++) {
+        if (scores[i] > *max_score) {
+            max_score = &scores[i];
+        }
+    }
+    return max_score;
+}
+
+float calculate_average(float *scores, int size) {
+    float sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += scores[i];
+    }
+    return sum / size;
+}
+
+int main() {
+    float scores[SIZE] = {85.5, 92.3, 78.0, 88.9, 91.2};
+    
+    float *highest = find_highest_score(scores, SIZE);
+    float average = calculate_average(scores, SIZE);
+    
+    printf("Highest score: %.2f\n", *highest);
+    printf("Average score: %.2f\n", average);
+    
+    return 0;
+}
+
+
+Grade Assignment
+Input: Array of student marks.
+Process: Pass the marks array by reference to a function. Use a switch statement to assign grades.
+Output: Display grades for each student.
+Concepts: Arrays, decision-making, pass by reference, functions.
+
+
+#include <stdio.h>
+
+#define SIZE 5
+
+void assign_grades(int *marks, char *grades, int size) {
+    for (int i = 0; i < size; i++) {
+        switch (marks[i] / 10) {
+            case 10:
+            case 9:
+                grades[i] = 'A';
+                break;
+            case 8:
+                grades[i] = 'B';
+                break;
+            case 7:
+                grades[i] = 'C';
+                break;
+            case 6:
+                grades[i] = 'D';
+                break;
+            default:
+                grades[i] = 'F';
+                break;
+        }
+    }
+}
+
+int main() {
+    int marks[SIZE] = {95, 82, 76, 60, 48};
+    char grades[SIZE];
+    
+    assign_grades(marks, grades, SIZE);
+    
+    for (int i = 0; i < SIZE; i++) {
+        printf("Student %d: Grade %c\n", i + 1, grades[i]);
+    }
+    
+    return 0;
+}
+
+
+Student Attendance Tracker
+Input: Array of attendance percentages.
+Process: Use pointers to traverse the array. Return a pointer to an array of defaulters.
+Output: Display defaulters’ indices.
+Concepts: Arrays, pointers, functions returning pointers.
+
+
+#include <stdio.h>
+
+#define SIZE 5
+#define THRESHOLD 75
+
+int* find_defaulters(int *attendance, int size, int *defaulters_count) {
+    static int defaulters[SIZE];
+    *defaulters_count = 0;
+    
+    for (int i = 0; i < size; i++) {
+        if (attendance[i] < THRESHOLD) {
+            defaulters[*defaulters_count] = i;
+            (*defaulters_count)++;
+        }
+    }
+    
+    return defaulters;
+}
+
+int main() {
+    int attendance[SIZE] = {85, 70, 92, 60, 78};
+    int defaulters_count = 0;
+    int* defaulters = find_defaulters(attendance, SIZE, &defaulters_count);
+    
+    printf("Defaulters: ");
+    for (int i = 0; i < defaulters_count; i++) {
+        printf("%d ", defaulters[i]);
+    }
+    
+    return 0;
+}
+
+
+Quiz Performance Analyzer
+Input: Array of quiz scores.
+Process: Pass the array as a constant parameter to a function that uses if-else for performance categorization.
+Output: Print categorized performance.
+Concepts: Arrays, passing constant data, functions, decision-making.
+ 
+
+ #include <stdio.h>
+
+#define SIZE 5
+
+void categorize_performance(const int *scores, int size) {
+    for (int i = 0; i < size; i++) {
+        if (scores[i] >= 90) {
+            printf("Student %d: Excellent\n", i);
+        } else if (scores[i] >= 75) {
+            printf("Student %d: Good\n", i);
+        } else if (scores[i] >= 50) {
+            printf("Student %d: Average\n", i);
+        } else {
+            printf("Student %d: Poor\n", i);
+        }
+    }
+}
+
+int main() {
+    int scores[SIZE] = {85, 92, 68, 47, 78};
+    categorize_performance(scores, SIZE);
+    return 0;
+}
