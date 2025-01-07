@@ -1,0 +1,1024 @@
+Double Pointers
+1. Swap Two Numbers Using Double Pointers
+Write a function void swap(int **a, int **b) that swaps the values of two integer pointers using double pointers.
+
+#include <stdio.h>
+
+void swap(int **a, int **b){
+    int *temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main(){
+    int x = 10, y = 20;
+    printf("Before swap: x = %d, y = %d\n", x, y);
+    swap(&x, &y);
+    printf("After swap: x = %d, y = %d\n", x, y);
+    
+    return 0;
+}
+
+
+2. Dynamic Memory Allocation Using Double Pointer
+Implement a function void allocateArray(int **arr, int size) that dynamically allocates memory for an array of integers using a double pointer.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void allocateArray(int **arr, int size){
+    *arr=(int *)malloc(size * sizeof(int));
+    if (*arr == NULL){
+        printf("Memory allocation failed!\n");
+        exit(1); 
+    }
+}
+
+int main(){
+    int *array = NULL; 
+    int n;
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    allocateArray(&array, n);
+    printf("Enter %d elements for the array:\n", n);
+    for (int i=0; i<n; i++){
+        scanf("%d", &array[i]);
+    }
+    printf("Array elements are:\n");
+    for (int i=0; i<n; i++){
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+    free(array);
+
+    return 0;
+}
+ 
+
+3. Modify a String Using Double Pointer
+Write a function void modifyString(char **str) that takes a double pointer to a string, dynamically allocates a new string, assigns it to the pointer, and modifies the original string.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void modifyString(char **str){
+    char *newString = (char *)malloc(100 * sizeof(char));
+    if (newString == NULL){
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
+    printf("Enter a new string to replace the original: ");
+    scanf(" %s", newString);
+    free(*str);
+    *str = newString;
+}
+
+int main(){
+    char *myString = (char *)malloc(50 * sizeof(char)); 
+    if (myString == NULL){
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+    printf("Enter the original string: ");
+    scanf(" %s", myString);
+    printf("Original string: %s\n", myString);
+    modifyString(&myString);
+    printf("Modified string: %s\n", myString);
+    free(myString);
+
+    return 0;
+}
+
+
+4. Pointer to Pointer Example
+Create a simple program that demonstrates how to use a pointer to a pointer to access and modify the value of an integer.
+
+
+#include <stdio.h>
+
+int main(){
+    int number = 10;   
+    int *ptr = &number;      
+    int **ptrToPtr = &ptr;   
+    printf("Initial value of number: %d\n", number);
+    **ptrToPtr = 25;
+
+    printf("Modified value of number using pointer to pointer: %d\n", number);
+    printf("Address of number: %p\n", (void *)&number);
+    printf("Value of ptr (address of number): %p\n", (void *)ptr);
+    printf("Value of ptrToPtr (address of ptr): %p\n", (void *)ptrToPtr);
+
+    return 0;
+}
+
+
+5. 2D Array Using Double Pointer
+Write a function int** create2DArray(int rows, int cols) that dynamically allocates memory for a 2D array of integers using a double pointer and returns the pointer to the array.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int** create2DArray(int rows, int cols) {
+    int **array = (int**)malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++) {
+        array[i] = (int*)malloc(cols * sizeof(int));
+    }
+    return array;
+}
+
+int main() {
+    int rows = 3, cols = 4;
+    int **array = create2DArray(rows, cols);
+
+    for (int i =0; i<rows; i++) {
+        for (int j=0; j<cols; j++){
+            array[i][j] = i * cols+j+1;
+        }
+    }
+
+    for (int i=0; i<rows; i++){
+        for (int j=0; j<cols; j++){
+            printf("%d ", array[i][j]);
+        }
+        printf("\n");
+    }
+
+    for (int i=0; i<rows; i++){
+        free(array[i]);
+    }
+    free(array);
+
+    return 0;
+}
+
+
+6. Freeing 2D Array Using Double Pointer
+Implement a function void free2DArray(int **arr, int rows) that deallocates the memory allocated for a 2D array using a double pointer.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void free2DArray(int **arr, int rows) {
+    for (int i = 0; i < rows; i++) {
+        free(arr[i]);
+    }
+    free(arr);
+}
+
+int main() {
+    int rows = 3, cols = 4;
+    int **array = (int**)malloc(rows * sizeof(int*));
+    for (int i = 0; i < rows; i++) {
+        array[i] = (int*)malloc(cols * sizeof(int));
+        for (int j = 0; j < cols; j++) {
+            array[i][j] = i * cols + j + 1;
+        }
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", array[i][j]);
+        }
+        printf("\n");
+    }
+
+    free2DArray(array, rows);
+
+    return 0;
+}
+
+
+7. Pass a Double Pointer to a Function
+Write a function void setPointer(int **ptr) that sets the pointer passed to it to point to a dynamically allocated integer.
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void setPointer(int **ptr) {
+    *ptr = (int*)malloc(sizeof(int));
+    if (*ptr) {
+        **ptr = 42;
+    }
+}
+
+int main() {
+    int *num = NULL;
+    setPointer(&num);
+    if (num) {
+        printf("Value: %d\n", *num);
+        free(num);
+    }
+    return 0;
+}
+
+
+8. Dynamic Array of Strings
+Create a function void allocateStringArray(char ***arr, int n) that dynamically allocates memory for an array of n strings using a double pointer.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void allocateStringArray(char ***arr, int n) {
+    *arr = (char**)malloc(n * sizeof(char*));
+    for (int i = 0; i < n; i++) {
+        (*arr)[i] = (char*)malloc(100 * sizeof(char));
+    }
+}
+
+int main() {
+    char **stringArray;
+    int n = 3;
+
+    allocateStringArray(&stringArray, n);
+
+    for (int i = 0; i < n; i++) {
+        snprintf(stringArray[i], 100, "String %d", i + 1);
+    }
+
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", stringArray[i]);
+        free(stringArray[i]);
+    }
+
+    free(stringArray);
+
+    return 0;
+}
+
+
+9. String Array Manipulation Using Double Pointer
+Implement a function void modifyStringArray(char **arr, int n) that modifies each string in an array of strings using a double pointer.
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void modifyStringArray(char **arr, int n) {
+    for (int i = 0; i < n; i++) {
+        strcat(arr[i], " - Modified");
+    }
+}
+
+int main() {
+    int n = 3;
+    char **stringArray = (char**)malloc(n * sizeof(char*));
+
+    for (int i = 0; i < n; i++) {
+        stringArray[i] = (char*)malloc(100 * sizeof(char));
+        snprintf(stringArray[i], 100, "String %d", i + 1);
+    }
+
+    modifyStringArray(stringArray, n);
+
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", stringArray[i]);
+        free(stringArray[i]);
+    }
+
+    free(stringArray);
+
+    return 0;
+}
+
+
+
+Function Pointers
+1. Basic Function Pointer Declaration
+Write a program that declares a function pointer for a function int add(int, int) and uses it to call the function and print the result.
+
+#include<stdio.h>
+
+int add(int,int);
+int main(){
+    int (*fptr)(int ,int); //declaration of function ptr 
+    
+    fptr=&add;//initialise fn ptr
+    
+  
+
+    printf("%d",fptr(10,5));
+}
+int add(int a,int b){
+    return a+b;
+}
+
+
+2. Function Pointer as Argument
+Implement a function void performOperation(int (*operation)(int, int), int a, int b) that takes a function pointer as an argument and applies it to two integers, printing the result.
+
+#include <stdio.h>
+
+void performOperation(int (*operation)(int, int), int a, int b) {
+    printf("Result: %d\n", operation(a, b));
+}
+
+int add(int x, int y) {
+    return x + y;
+}
+
+int multiply(int x, int y) {
+    return x * y;
+}
+
+int main() {
+    performOperation(add, 5, 3);
+    performOperation(multiply, 5, 3);
+    return 0;
+}
+
+
+3. Function Pointer Returning Pointer
+Write a program with a function int* max(int *a, int *b) that returns a pointer to the larger of two integers, and use a function pointer to call this function.
+
+
+#include <stdio.h>
+
+int* max(int *a, int *b) {
+    return (*a > *b) ? a : b;
+}
+
+int main() {
+    int x = 10, y = 20;
+    int* (*funcPtr)(int*, int*) = max;
+    int *result = funcPtr(&x, &y);
+    printf("Max: %d\n", *result);
+    return 0;
+}
+
+
+4. Function Pointer with Different Functions
+Create a program that defines two functions int add(int, int) and int multiply(int, int) and uses a function pointer to dynamically switch between these functions based on user input.
+
+#include <stdio.h>
+
+int add(int x, int y) {
+    return x + y;
+}
+
+int multiply(int x, int y) {
+    return x * y;
+}
+
+int main() {
+    int choice;
+    printf("Enter 1 for Add, 2 for Multiply: ");
+    scanf("%d", &choice);
+
+    int (*operation)(int, int) = (choice == 1) ? add : multiply;
+    printf("Result: %d\n", operation(5, 3));
+    return 0;
+}
+
+
+5. Array of Function Pointers
+Implement a program that creates an array of function pointers for basic arithmetic operations (addition, subtraction, multiplication, division) and allows the user to select and execute one operation.
+
+#include <stdio.h>
+
+int add(int a, int b) { return a + b; }
+int subtract(int a, int b) { return a - b; }
+int multiply(int a, int b) { return a * b; }
+int divide(int a, int b) { return b != 0 ? a / b : 0; }
+
+int main() {
+    int (*operations[])(int, int) = {add, subtract, multiply, divide};
+    int choice, x = 10, y = 2;
+
+    printf("Select operation: 0-Add, 1-Subtract, 2-Multiply, 3-Divide: ");
+    scanf("%d", &choice);
+    printf("Result: %d\n", operations[choice](x, y));
+    return 0;
+}
+
+
+6. Using Function Pointers for Sorting
+Write a function void sort(int *arr, int size, int (*compare)(int, int)) that uses a function pointer to compare elements, allowing for both ascending and descending order sorting.
+
+#include <stdio.h>
+
+void sort(int *arr, int size, int (*compare)(int, int)) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (compare(arr[j], arr[j + 1])) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int ascending(int a, int b) {
+    return a > b;
+}
+
+int descending(int a, int b) {
+    return a < b;
+}
+
+int main() {
+    int arr[] = {4, 2, 5, 1, 3};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    sort(arr, size, ascending);
+    for (int i = 0; i < size; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+    sort(arr, size, descending);
+    for (int i = 0; i < size; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+    return 0;
+}
+
+
+7. Callback Function
+Create a program with a function void execute(int x, int (*callback)(int)) that applies a callback function to an integer and prints the result. Demonstrate with multiple callback functions (e.g., square, cube).
+
+#include <stdio.h>
+
+void execute(int x, int (*callback)(int)) {
+    printf("Result: %d\n", callback(x));
+}
+
+int square(int x) {
+    return x * x;
+}
+
+int cube(int x) {
+    return x * x * x;
+}
+
+int main() {
+    execute(3, square);
+    execute(3, cube);
+    return 0;
+}
+
+
+8. Menu System Using Function Pointers
+Implement a simple menu system where each menu option corresponds to a different function, and a function pointer array is used to call the selected function based on user input.
+
+#include <stdio.h>
+
+void option1() {
+    printf("Option 1 Selected\n");
+}
+
+void option2() {
+    printf("Option 2 Selected\n");
+}
+
+void option3() {
+    printf("Option 3 Selected\n");
+}
+
+int main() {
+    void (*menu[])(void) = {option1, option2, option3};
+    int choice;
+
+    printf("Enter option (0-2): ");
+    scanf("%d", &choice);
+
+    if (choice >= 0 && choice < 3) menu[choice]();
+    else printf("Invalid choice\n");
+
+    return 0;
+}
+
+
+9. Dynamic Function Selection
+Write a program where the user inputs an operation symbol (+, -, *, /) and the program uses a function pointer to call the corresponding function.
+
+#include <stdio.h>
+
+int add(int a, int b) { return a + b; }
+int subtract(int a, int b) { return a - b; }
+int multiply(int a, int b) { return a * b; }
+int divide(int a, int b) { return b != 0 ? a / b : 0; }
+
+int main() {
+    char op;
+    int x = 10, y = 2;
+    int (*operation)(int, int) = NULL;
+
+    printf("Enter operation (+, -, *, /): ");
+    scanf(" %c", &op);
+
+    switch (op) {
+        case '+': operation = add; break;
+        case '-': operation = subtract; break;
+        case '*': operation = multiply; break;
+        case '/': operation = divide; break;
+        default: printf("Invalid operation\n"); return 1;
+    }
+
+    printf("Result: %d\n", operation(x, y));
+    return 0;
+}
+
+
+10. State Machine with Function Pointers
+Design a simple state machine where each state is represented by a function, and transitions are handled using function pointers. For example, implement a traffic light system with states like Red, Green, and Yellow.
+ 
+
+ #include <stdio.h>
+
+void red() { printf("Red Light\n"); }
+void green() { printf("Green Light\n"); }
+void yellow() { printf("Yellow Light\n"); }
+
+int main() {
+    void (*states[])(void) = {red, green, yellow};
+    int currentState = 0;
+
+    for (int i = 0; i < 6; i++) {
+        states[currentState]();
+        currentState = (currentState + 1) % 3;
+    }
+
+    return 0;
+}
+
+
+
+
+// programs on dynamin memory allocation
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+    int n;
+    printf(" Enter limit\n");
+    scanf("%d",&n);
+    int *pNumber = (int *)malloc(n*sizeof(int));
+    printf("pNumber= %p\n",pNumber);
+    for (int i=0;i<n;i++){
+        
+        pNumber[i]=i+1;
+    }
+    for (int i=0;i<n;i++){
+        printf("Values =%d",*pNumber);
+        ++pNumber;
+    }
+    free(pNumber);
+    
+    return 0;
+}
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+    int n;
+    printf(" Enter limit\n");
+    scanf("%d",&n);
+    char *pNumber =malloc(n*sizeof(char));
+    // printf("pNumber= %p\n",pNumber);
+    printf("Enter the string\n");
+    scanf("%s",pNumber);
+    
+    printf("Values =%s",pNumber);
+       
+    free(pNumber);
+    
+    return 0;
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(){
+    int n;
+    printf("Enter the initial size of the array: ");
+    scanf("%d", &n);
+    int *array=(int *)malloc(n * sizeof(int));
+    printf("initial values\n");
+    for (int i=0; i<n; i++){
+        array[i]=i+1;
+    }
+    printf("Initial array: ");
+    for (int i=0; i<n; i++){
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+    int newSize =2*n;
+    int *newArray=(int *)realloc(array, newSize * sizeof(int));
+    array=newArray;
+    for(int i=n; i<newSize; i++){
+        array[i]=i+1;
+    }
+    printf("Resized array: ");
+    for (int i=0; i<newSize; i++){
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+    free(array);
+    return 0;
+}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* concatenateStrings(const char* str1, const char* str2){
+    int len1=strlen(str1);
+    int len2=strlen(str2);
+    int totalLen=len1+len2+1; 
+    char* result=(char*)malloc(totalLen * sizeof(char));
+    strcpy(result, str1);
+    strcat(result, str2);
+    return result;
+}
+
+int main(){
+    char str1[100], str2[100];
+    printf("Enter the first string: ");
+    scanf("%s", str1);
+    printf("Enter the second string: ");
+    scanf("%s", str2);
+    char* concatenatedString = concatenateStrings(str1, str2);
+    
+    printf("Concatenated String: %s\n", concatenatedString);
+    free(concatenatedString);
+
+    return 0;
+}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+    int n;
+
+    printf("Enter the number of integers: ");
+    scanf("%d", &n);
+    int **arr = (int **)malloc(n * sizeof(int *));
+    
+    for (int i=0; i<n;i++){
+        arr[i] = (int *)malloc(sizeof(int));
+        
+        *(arr[i])=(i+1)*10;
+    }
+    printf("Array values:\n");
+    for (int i = 0; i < n; i++){
+        printf("arr[%d] = %d\n", i, *(arr[i]));
+    }
+    for(int i=0; i<n; i++){
+        free(arr[i]); 
+    }
+    free(arr);
+
+    return 0;
+}
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main()
+{
+   int num = 20;
+   int *p = &num;
+   int **dp = &p;
+
+   printf("001num = %d\n",*p);
+   printf("Address of a = %p\n",&num);
+   printf("002num = %d\n",**dp);
+
+    return 0;
+}
+#include<stdio.h>
+#include<stdlib.h>
+int main(){
+    int *pNumber = malloc(25*sizeof(int));
+    printf("pNumber= %p\n",pNumber);
+    for (int i=0;i<25;i++){
+        printf("Values =%d",*pNumber);
+        ++pNumber;
+    }
+    return 0;
+}
+#include <stdio.h>
+#include <string.h>
+
+void reverseString(char *str){
+    int len=strlen(str);
+    int i,j;
+    char temp;
+    for (i=0, j=len-1; i<j; i++, j--){
+        temp=str[i];
+        str[i]=str[j];
+        str[j]=temp;
+    }
+}
+
+int main(){
+    char str[100];
+    printf("Enter a string: ");
+    scanf("%s", str);
+    reverseString(str);
+    printf("Reversed string: %s\n", str);
+    return 0;
+}
+#include <stdio.h>
+#include <string.h>
+
+void tokenizeString(char *str, const char *delim, void(*processToken)(const char *)){
+    char *token = strtok(str, delim);
+
+    while(token != NULL){
+        processToken(token);         
+        token = strtok(NULL, delim); 
+    }
+}
+void printToken(const char *token){
+    printf("Token: %s\n", token);
+}
+
+int main(){
+    char str[100];
+    const char delim[] = " ,.;";
+    printf("Enter a string: ");
+    scanf("%s", str);
+    printf("Tokens:\n");
+    tokenizeString(str, delim, printToken);
+
+    return 0;
+}
+
+#include <stdio.h>
+
+void concatenateStrings(char *dest, const char *src){
+    while (*dest){ 
+        dest++;
+    }
+    while (*src){
+        *dest=*src;
+        dest++;
+        src++;
+    }
+    *dest ='\0';  
+}
+
+int main(){
+    char dest[100], src[50];
+    printf("Enter the destination string: ");
+    scanf("%s", dest);
+    printf("Enter the source string: ");
+    scanf("%s", src);
+
+    concatenateStrings(dest, src);
+    printf("Concatenated string: %s\n", dest);
+    return 0;
+}
+#include <stdio.h>
+
+int stringLength(const char *str){
+    const char *ptr = str; 
+    while (*ptr){    
+        ptr++;
+    }
+    return ptr-str;
+}
+
+int main(){
+    char str[100];
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    int length = stringLength(str);
+    printf("Length of the string: %d\n", length);
+    return 0;
+}
+#include <stdio.h>
+
+int compareStrings(const char *str1, const char *str2){
+    while (*str1&&(*str1==*str2)){
+        str1++;
+        str2++;
+    }
+    return *str1 - *str2;
+}
+
+int main(){
+    char str1[100], str2[100];
+    printf("Enter the first string: ");
+    scanf("%s", str1);
+    printf("Enter the second string: ");
+    scanf("%s", str2);
+    int result=compareStrings(str1, str2);
+    if(result==0){
+        printf("The strings are equal.\n");
+    }
+    else if (result>0){
+        printf("The first string is greater.\n");
+    } 
+    else{
+        printf("The second string is greater.\n");
+    }
+
+    return 0;
+}
+#include <stdio.h>
+#include <string.h>
+
+char* findSubstring(const char *str, const char *sub) {
+    const char *s, *p;
+    while (*str){
+        s=str;
+        p=sub;
+        while (*p && (*s == *p)){
+            s++;
+            p++;
+        }
+        if (*p=='\0'){
+            return (char *)str;
+        }
+        str++;
+    }
+    return NULL;
+}
+
+int main(){
+    char str[100], sub[100];
+
+    printf("Enter the main string: ");
+    scanf("%99s", str);
+    printf("Enter the substring to find: ");
+    scanf("%99s", sub);
+    char *result = findSubstring(str, sub);
+    if(result){
+        printf("Substring found at position: %ld\n", result - str);
+    }
+    else{
+        printf("Substring not found.\n");
+    }
+
+    return 0;
+}
+#include <stdio.h>
+
+void replaceChar(char *str, char oldChar, char newChar){
+    while (*str){
+        if(*str==oldChar){
+            *str=newChar;
+        }
+        str++;
+    }
+}
+
+int main(){
+    char str[100];
+    char oldChar, newChar;
+    printf("Enter a string: ");
+    scanf("%s", str);
+    printf("Enter the character to replace: ");
+    scanf(" %c", &oldChar);
+    printf("Enter the new character: ");
+    scanf(" %c", &newChar);
+    replaceChar(str, oldChar, newChar);
+    printf("Modified string: %s\n", str);
+    return 0;
+}
+#include <stdio.h>
+
+void copyString(char *dest, const char *src){
+    while (*src){
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';
+}
+
+int main(){
+    char src[100], dest[100];
+    printf("Enter the source string: ");
+    scanf("%s", src);
+    copyString(dest, src);
+    printf("Copied string: %s\n", dest);
+    return 0;
+}
+#include <stdio.h>
+#include <ctype.h>
+int countVowels(const char *str){
+    int count = 0;
+    while (*str){
+        char ch = tolower(*str);
+        if(ch=='a'||ch=='e'||ch =='i'||ch=='o'||ch =='u'){
+            count++;
+        }
+        str++;
+    }
+    return count;
+}
+int main(){
+    char str[100];
+    printf("Enter a string: ");
+    scanf("%s", str);
+    int vowelCount=countVowels(str);
+    printf("Number of vowels: %d\n", vowelCount);
+    return 0;
+}
+#include <stdio.h>
+#include <string.h>
+
+int isPalindrome(const char *str){
+    int start=0;
+    int end=strlen(str)-1;
+
+    while (start<end){
+        if (str[start]!=str[end]){
+            return 0;
+        }
+        start++;
+        end--;
+    }
+
+    return 1;
+}
+
+int main(){
+    char str[100];
+
+    printf("Enter a string: ");
+    scanf("%s", str);
+
+    if (isPalindrome(str)){
+        printf("The string is a palindrome.\n");
+    }
+    else{
+        printf("The string is not a palindrome.\n");
+    }
+
+    return 0;
+}
+#include<stdio.h>
+
+int add(int,int);
+int main(){
+    int (*fptr)(int ,int); //declaration of function ptr 
+    
+    fptr=&add;//initialise fn ptr
+    
+  
+
+    printf("%d",fptr(10,5));
+}
+int add(int a,int b){
+    return a+b;
+}
+#include <stdio.h>
+#include <stdlib.h>
+
+void allocateArray(int **arr, int size){
+    
+    *arr=(int *)malloc(size * sizeof(int));
+    if (*arr == NULL){
+        printf("Memory allocation failed!\n");
+        exit(1); 
+    }
+}
+
+int main(){
+    int *array = NULL; 
+    int n;
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+
+    allocateArray(&array, n);
+    printf("Enter %d elements for the array:\n", n);
+    for (int i=0; i<n; i++){
+        scanf("%d", &array[i]);
+    }
+    printf("Array elements are:\n");
+    for (int i=0; i<n; i++){
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+    free(array);
+
+    return 0;
+}
+#include <stdio.h>
+
+ void copyString(char *,char *);
+
+int main(){
+    char str1[]="Nithin";
+    char str2[20];
+    char *Pstr1, *Pstr2;
+    Pstr1=str1;
+    Pstr2=str2;
+    copyString(Pstr1,Pstr2);
+    printf("str2= %s \n",str2);
+    return 0;
+
+
+
+}
+void copyString(char *from,char *to){
+    for(;*from !='\0';from++,to++){
+        *to=*from;
+    }
+    *to='\0';
+}
+
